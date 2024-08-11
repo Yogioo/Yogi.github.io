@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+    <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8" />
+
+    <meta name="generator" content="Hugo 0.131.0"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>Unity中的音频分析算法：预处理音频分析 | illumination</title>
+
+    <link rel="stylesheet" href="/css/meme.min.css" />
+
+    
+    
+        
+            <script src="/js/meme.min.js"></script>
+
+        
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" /></noscript>
+
+    <meta name="author" content="Mingxian" /><meta name="description" content="在进行实时分析时，我们发现我们必须稍微滞后于当前播放的音频才能检测节拍。我们也只能使……" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#fff" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="illumination" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="illumination" />
+    <meta name="msapplication-starturl" content="../../" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="../../icons/mstile-150x150.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    
+    
+
+    
+        <link rel="canonical" href="http://localhost:1313/tech/audio-analysis-algorithms-in-unity-preprocessing-audio-analysis/" />
+    
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "datePublished": "2022-03-21T18:10:00+08:00",
+        "dateModified": "2024-08-11T18:04:18+08:00",
+        "url": "http://localhost:1313/tech/audio-analysis-algorithms-in-unity-preprocessing-audio-analysis/",
+        "headline": "Unity中的音频分析算法：预处理音频分析",
+        "description": "在进行实时分析时，我们发现我们必须稍微滞后于当前播放的音频才能检测节拍。我们也只能使……",
+        "inLanguage" : "zh-hant",
+        "articleSection": "tech",
+        "wordCount":  4059 ,
+        "image": "http://localhost:1313/icons/apple-touch-icon.png",
+        "author": {
+            "@type": "Person",
+            "description": "當你下定決心 結局便成了副產物",
+            "email": "yangmingxian2015@gmail.com",
+            "image": "http://localhost:1313/icons/apple-touch-icon.png",
+            "url": "https://yangmingxian.com/",
+            "name": "Mingxian"
+        },
+        "license": "在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。",
+        "publisher": {
+            "@type": "Organization",
+            "name": "illumination",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://localhost:1313/icons/apple-touch-icon.png"
+            },
+            "url": "http://localhost:1313/"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebSite",
+            "@id": "http://localhost:1313/"
+        }
+    }
+</script>
+
+    
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:site" content="@CyberStreamer" />
+<meta name="twitter:creator" content="@CyberStreamer" />
+
+    
+
+
+
+<meta property="og:title" content="Unity中的音频分析算法：预处理音频分析" />
+<meta property="og:description" content="在进行实时分析时，我们发现我们必须稍微滞后于当前播放的音频才能检测节拍。我们也只能使……" />
+<meta property="og:url" content="http://localhost:1313/tech/audio-analysis-algorithms-in-unity-preprocessing-audio-analysis/" />
+<meta property="og:site_name" content="illumination" />
+<meta property="og:locale" content="zh-hant" /><meta property="og:image" content="http://localhost:1313/icons/apple-touch-icon.png" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2022-03-21T18:10:00&#43;08:00" />
+    <meta property="article:modified_time" content="2024-08-11T18:04:18&#43;08:00" />
+    
+    <meta property="article:section" content="tech" />
+
+
+
+    
+    
+
+    
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@700&amp;text=reuixiy&amp;display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@700&amp;text=reuixiy&amp;display=swap" /></noscript>
+
+</head>
+
+    <body>
+        <div class="container">
+            
+    <header class="header">
+        
+            <div class="header-wrapper">
+                <div class="header-inner single">
+                    
+    <div class="site-brand">
+        
+            <a href="/" class="brand">illumination</a>
+        
+    </div>
+
+                    <nav class="nav">
+    <ul class="menu" id="menu">
+        
+
+        
+            
+                <li class="menu-item"><a href="/life/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon life"><path d="M301.1 212c4.4 4.4 4.4 11.9 0 16.3l-9.7 9.7c-4.4 4.7-11.9 4.7-16.6 0l-10.5-10.5c-4.4-4.7-4.4-11.9 0-16.6l9.7-9.7c4.4-4.4 11.9-4.4 16.6 0l10.5 10.8zm-30.2-19.7c3-3 3-7.8 0-10.5-2.8-3-7.5-3-10.5 0-2.8 2.8-2.8 7.5 0 10.5 3.1 2.8 7.8 2.8 10.5 0zm-26 5.3c-3 2.8-3 7.5 0 10.2 2.8 3 7.5 3 10.5 0 2.8-2.8 2.8-7.5 0-10.2-3-3-7.7-3-10.5 0zm72.5-13.3c-19.9-14.4-33.8-43.2-11.9-68.1 21.6-24.9 40.7-17.2 59.8.8 11.9 11.3 29.3 24.9 17.2 48.2-12.5 23.5-45.1 33.2-65.1 19.1zm47.7-44.5c-8.9-10-23.3 6.9-15.5 16.1 7.4 9 32.1 2.4 15.5-16.1zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-66.2 42.6c2.5-16.1-20.2-16.6-25.2-25.7-13.6-24.1-27.7-36.8-54.5-30.4 11.6-8 23.5-6.1 23.5-6.1.3-6.4 0-13-9.4-24.9 3.9-12.5.3-22.4.3-22.4 15.5-8.6 26.8-24.4 29.1-43.2 3.6-31-18.8-59.2-49.8-62.8-22.1-2.5-43.7 7.7-54.3 25.7-23.2 40.1 1.4 70.9 22.4 81.4-14.4-1.4-34.3-11.9-40.1-34.3-6.6-25.7 2.8-49.8 8.9-61.4 0 0-4.4-5.8-8-8.9 0 0-13.8 0-24.6 5.3 11.9-15.2 25.2-14.4 25.2-14.4 0-6.4-.6-14.9-3.6-21.6-5.4-11-23.8-12.9-31.7 2.8.1-.2.3-.4.4-.5-5 11.9-1.1 55.9 16.9 87.2-2.5 1.4-9.1 6.1-13 10-21.6 9.7-56.2 60.3-56.2 60.3-28.2 10.8-77.2 50.9-70.6 79.7.3 3 1.4 5.5 3 7.5-2.8 2.2-5.5 5-8.3 8.3-11.9 13.8-5.3 35.2 17.7 24.4 15.8-7.2 29.6-20.2 36.3-30.4 0 0-5.5-5-16.3-4.4 27.7-6.6 34.3-9.4 46.2-9.1 8 3.9 8-34.3 8-34.3 0-14.7-2.2-31-11.1-41.5 12.5 12.2 29.1 32.7 28 60.6-.8 18.3-15.2 23-15.2 23-9.1 16.6-43.2 65.9-30.4 106 0 0-9.7-14.9-10.2-22.1-17.4 19.4-46.5 52.3-24.6 64.5 26.6 14.7 108.8-88.6 126.2-142.3 34.6-20.8 55.4-47.3 63.9-65 22 43.5 95.3 94.5 101.1 59z"/></svg><span class="menu-item-name">生活</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/tech/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon tech"><path d="M512 256c0 141.2-114.7 256-256 256C114.8 512 0 397.3 0 256S114.7 0 256 0s256 114.7 256 256zm-32 0c0-123.2-100.3-224-224-224C132.5 32 32 132.5 32 256s100.5 224 224 224 224-100.5 224-224zM160.9 124.6l86.9 37.1-37.1 86.9-86.9-37.1 37.1-86.9zm110 169.1l46.6 94h-14.6l-50-100-48.9 100h-14l51.1-106.9-22.3-9.4 6-14 68.6 29.1-6 14.3-16.5-7.1zm-11.8-116.3l68.6 29.4-29.4 68.3L230 246l29.1-68.6zm80.3 42.9l54.6 23.1-23.4 54.3-54.3-23.1 23.1-54.3z"/></svg><span class="menu-item-name">技術</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/about/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon about"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><span class="menu-item-name">關於</span></a>
+                </li>
+            
+        
+            
+                
+                    
+                    
+                        <li class="menu-item">
+                            <a id="theme-switcher" href="#"><span class="icon theme-icon-light">🌞</span><span class="icon theme-icon-dark">🌙</span></a>
+                        </li>
+                    
+                
+            
+        
+            
+                
+            
+        
+    </ul>
+</nav>
+
+                    
+                </div>
+            </div>
+            
+    <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-toggle"></label>
+    <label for="nav-toggle" class="nav-curtain"></label>
+
+
+        
+    </header>
+
+
+
+
+            
+            
+    <main class="main single" id="main">
+    <div class="main-inner">
+
+        
+
+        <article class="content post h-entry" data-align="justify" data-type="tech" data-toc-num="true">
+
+            <h1 class="post-title p-name">Unity中的音频分析算法：预处理音频分析</h1>
+
+            
+
+            
+                
+            
+
+            
+
+            <div class="post-body e-content">
+                <blockquote>
+<p>在进行实时分析时，我们发现我们必须稍微滞后于当前播放的音频才能检测节拍。我们也只能使用在音频中直到当前时间检测到的频谱数据来做计算，这些限制让我们的音频分析变得很受制约。不过我们可以先对音频进行预处理来解决这些限制。</p>
+</blockquote>
+<h2 id="本系列文章"><a href="#本系列文章" class="anchor-link">#</a>本系列文章</h2>
+<p>[<strong>Unity中的音频分析算法：介绍</strong>]({% post_url 2021-07-01-Unity中的音频分析算法：介绍 %})</p>
+<p>[<strong>Unity中的音频分析算法：使用 Unity API 进行实时音频分析</strong>]({% post_url 2021-07-02-Unity中的音频分析算法：使用 Unity API 进行实时音频分析 %})</p>
+<p>[<strong>Unity中的音频分析算法：预处理音频分析</strong>]({% post_url 2022-03-21-Unity中的音频分析算法：预处理音频分析 %})</p>
+<p><a href="https://www.bilibili.com/video/BV1zY4y1h7DL/" target="_blank" rel="noopener">演示视频链接：https://www.bilibili.com/video/BV1zY4y1h7DL/</a></p>
+<hr>
+<p>在进行实时分析时，我们发现我们必须稍微滞后于当前播放的音频才能检测节拍。我们也只能使用在音频中直到当前时间检测到的频谱数据来做计算，这些限制让我们的音频分析变得很受制约。不过我们可以先对音频进行预处理来解决这些限制。</p>
+<p>如果你还没有阅读本系列的上一篇文章，使用 Unity API 进行实时音频分析，请在继续阅读之前一定花时间搞懂，它涵盖了本篇预处理分析所需的许多核心概念。<del><strong>好了，先占个坑，开始找工作了，有时间就更新。</strong></del></p>
+<p>在进行实时分析时，我们不可能在播放音频时瞬间检测出节拍，因此我们必须稍微落后于当前播放音频的进度来检测节拍。 我们一边播放音频一边进行节拍检测是一个限制因素，不过，我们可以通过预先处理整个音频文件来消除这些限制。</p>
+<h2 id="unity-函数"><a href="#unity-函数" class="anchor-link">#</a>Unity 函数</h2>
+<p>虽然 Unity 提供的的大多数函数都是用于实时分析，但它确实也给我们造好了轮子。 要预先处理整个音频文件，我们需要该文件的所有样本数据。 Unity 允许我们使用 <strong>AudioClip.GetData</strong> 获取该数据。它将音频的采样数据放到了指定的数组里。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="n">AudioSource</span> <span class="n">aud</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">AudioSource</span><span class="p">&gt;();</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span><span class="p">[]</span> <span class="n">samples</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="n">aud</span><span class="p">.</span><span class="n">clip</span><span class="p">.</span><span class="n">samples</span> <span class="p">*</span> <span class="n">aud</span><span class="p">.</span><span class="n">clip</span><span class="p">.</span><span class="n">channels</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">aud</span><span class="p">.</span><span class="n">clip</span><span class="p">.</span><span class="n">GetData</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+</span></span></code></pre></div><p><strong>AudioClip.samples</strong> 是音频中包含的单通道或组合通道样本的总数。 举例来说，如果一个音频有 100 个立体声样本，<strong>AudioClip.samples</strong> 将为 50。我们乘以 <strong>AudioClip.channels</strong>，因为 <strong>AudioClip.GetData</strong> 将以交错的格式返回样本数据。 比如我们有一个立体声音频，数据将返回为：</p>
+<p>L = 左声道 ; R = 右声道<br>
+[L, R, L, R, L, R,…]</p>
+<p>这会给计算带来很大的计算量，如果我们想要类似于 Channel 0 在 <strong>AudioSource.GetOutputData</strong> 中返回的数据，我们需要遍历整个音频的采样数组并将每两个样本平均以获得单声道样本。 这对于没有环绕音效或者是声道单一的音频来说是不必要的资源浪费。让我们来大致算一下我们是否要权衡一下计算量和检测效果带来的利弊。</p>
+<p>如果我有一个 5 分钟（300 秒）的音轨，采样率为每秒 48000 个样本，这意味着我们有：
+300 * 48000 = 14,400,000 个样本（这些样本都在被赋值给了 <strong>AudioClip.samples</strong>）
+但是，如果我们在立体声中，我们有交错的样本，这使我们的样本数加倍
+14,400,000 * 2 = 28,800,000 个样本
+如果我们想要得到这 1440 万个单声道样本，我们不得不遍历 2880 万个样本并对每对立体声样本进行平均来得到平均化的单声道样本。</p>
+<p>无论你怎么优化算法，迭代超过 2880 万个样本都不够快，无法迅速地在 Unity 的主线程上完成。 有一个比较常规的做法是使用 Unity C# 打包的 <strong>System.Threading</strong> 库将此任务传递给后台线程。从 AudioSouce / AudioClip 中获取您需要的任何值，使其可访问，然后在线程内部进行数学运算，并将 Unity API 的所有访问权限留给主线程。我就不在这里深入探讨 System.Threading了，但是 Unity 强烈建议（通常以抛出异常的形式）用户最好不要从后台线程中访问任何 Unity API 功能。</p>
+<p>让我们开始将立体声样本转换为单声道。 首先，我们需要从 Unity API 中获取我们稍后在生成后台线程时可能需要的任何属性。然后用循环来处理组合声道：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">float</span><span class="p">[]</span> <span class="n">preProcessedSamples</span> <span class="p">=</span> <span class="k">new</span> <span class="kt">float</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="n">numTotalSamples</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">numProcessed</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">float</span> <span class="n">combinedChannelAverage</span> <span class="p">=</span> <span class="m">0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="n">multiChannelSamples</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">combinedChannelAverage</span> <span class="p">+=</span> <span class="n">multiChannelSamples</span> <span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Each time we have processed all channels samples for a point in time, we will store the average of the channels combined</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="p">+</span> <span class="m">1</span><span class="p">)</span> <span class="p">%</span> <span class="k">this</span><span class="p">.</span><span class="n">numChannels</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">preProcessedSamples</span><span class="p">[</span><span class="n">numProcessed</span><span class="p">]</span> <span class="p">=</span> <span class="n">combinedChannelAverage</span> <span class="p">/</span> <span class="k">this</span><span class="p">.</span><span class="n">numChannels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">numProcessed</span><span class="p">++;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">combinedChannelAverage</span> <span class="p">=</span> <span class="m">0f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>现在，数组 <strong>preProcessedSamples</strong> 包含与 <strong>AudioSource.GetOutputData</strong> 实时返回的数据格式相同的数据，但它包含从轨道开头到结尾的样本，而不仅仅是当前播放音频的样本。 我们可以选择输出与歌曲中某个时间点的 <strong>AudioSource.GetOutputData</strong> 的输出和它进行比较，并查看它们是否相当接近。 这里值得注意的是 <strong>AudioSource.GetOutputData</strong> 返回最近播放的 1024 个（或数组的长度）样本，如果你还在算时间去找预处理样本中的起点，这可能就很迷，它是在某一时刻一次返回1024个样本。</p>
+<h2 id="频率的处理-外部库的使用"><a href="#频率的处理-外部库的使用" class="anchor-link">#</a>频率的处理 (外部库的使用)</h2>
+<p>我们得到了音频的样本数据，它是音频随时间变化的振幅，但我们想要的是频谱数据，或者在某个时间点的频率的显著特征。 在我们的实时分析中，我们使用 Unity 的API <strong>AudioSource.GetSpectrumData</strong> 来执行快速傅里叶变换。 Unity 没有用于对原始样本数据执行快速傅里叶变换的API，因此我们就找个外部的库来帮我们实现。</p>
+<p>有一个用 C# 实现的非常轻量级的基本傅立叶变换的库———— <a href="https://www.codeproject.com/Articles/1107480/DSPLib-FFT-DFT-Fourier-Transform-Library-for-NET" target="_blank" rel="noopener">DSPLib</a>。 它包括离散傅里叶变换和快速傅里叶变换，最重要的是，它为我们提供了音频振幅的输出，而且它的输出与使用了 <strong>AudioSource.GetSpectrumData</strong> 时的输出是相同的。</p>
+<p>不过还有个问题。 DSPLib 依赖于 C#.NET 的 System.Numerics 库提供的复杂数据类型。 Unity 会报错无法找到 Complex 数据类型或 System.Numerics。 这是因为 Unity 提供的 .NET 风格 Mono 不包含 System.Numerics 库。 为了解决这个问题，我们可以直接访问源代码（在本例中为 Microsoft 的 github 页面）并下载 Complex.cs 并将其放入我们的项目中。 Complex.cs 需要一些小的转换才能在 Unity 中编译（<em>别忘了在文件顶部添加对库的引用</em>）。</p>
+<p>在我们将频谱数据输入到音频识别算法之前，我们还需要进行一些准备就可以继续使用之前上一节的实时音频算法代码。</p>
+<p>大部分内容都是基于 DSPLib 站点上给出的示例。这里进行的操作是：</p>
+<ol>
+<li>将立体声样本合并为单声道</li>
+<li>以 2 次方的大小对样本进行迭代。这里经过权衡我们使用的是1024。</li>
+<li>抓取当前要处理的样本块</li>
+<li>使用可用的 FFT 窗口之一对其进行缩放和窗口化。</li>
+<li>执行 FFT 以检测复杂的频谱值，这是我们样本数据大小的一半，为512。</li>
+<li>将我们的复杂数据转换为可用格式（double数组）</li>
+<li>将我们的窗口比例因子应用于输出</li>
+<li>计算当前chunk所代表的当前音频时间</li>
+<li>将我们缩放、加窗、转换的频谱数据传递给我们频谱检测算法。</li>
+</ol>
+<p>在实时分析中，我们让 Unity 提供 1024 个频谱值，这意味着 Unity 在时域内对 2048 个音频样本进行采样。 在这里，我们使用了每个时刻的 1024 个音频样本，为我们提供了 512 个频谱值。 这意味着我们的频率仓（bin）粒度略有不同。 我们当然可以提供 2048 个音频样本，使其具有与我们在实时分析中所做的完全相同的粒度，但是 512 个 bin 已经可以对于频谱中的特征值检测得到较优结果了。</p>
+<p>对于 512 个 bin，我们只需将支持的频率范围（采样率 / 2 — Nyquist频率）÷ 512 即可确定每个 bin 表示的频率。
+每个bin: 48000 / 2 / 512 = 46.875Hz。
+我们不需要在这里使用重新设置算法的内容和参数，因为我们已经对数据进行了和上一节的音频实时分析相似的方式格式化了我们的频谱数据。</p>
+<h2 id="检测结果与预期结果对比"><a href="#检测结果与预期结果对比" class="anchor-link">#</a>检测结果与预期结果对比</h2>
+<p>我们知道我们的样本数据是随时间变化的幅度，因此每个索引必须代表不同的时间点。我们的采样率和我们在样本数据中的当前位置可以粗略地（在几毫秒内）告诉我们当前的样本块代表什么时间。</p>
+<p>我的测试音频时常 267 秒，音频的采样率为 44100Hz (<strong>AudioClip.frequency</strong>)，也就是说每秒有44100个样本，因此，我们大概预计一共有：</p>
+<p>44100 * 267 = 11,774,700 个样本</p>
+<p>我们查看 <strong>AudioClip.samples</strong> 的数值，它是显示提供了 11,782,329 个样本。比我们预期的多出大约 8k 个样本，换算一下大致是 0.18 秒。这只是因为曲目不完全是 267 秒长，而是267.18秒。</p>
+<p>我们需要知道每个块处理了多少时间，以便我们对样本表示的时间有所了解。</p>
+<p>1 / 44100 = ~0.0000227 s/sample<br>
+0.0000227 * 1024 = 0.023 s/块</p>
+<p>我们可以通过将轨道长度（以秒为单位）除以样本总数来得出相同的结果。</p>
+<p>每个sample 267 / 11,774,700 = ~0.0000227 s<br>
+0.0000227 * 1024 = 0.023 s/块</p>
+<p>我们也可以反过来做数学运算，以知道什么频谱量对应于歌曲中的特定时间。我使用的音频在3.6s 时有一个特征音符比较明显。时间除以每个样本的时间长度应该给我们一个索引，但我们必须记住，我们已经按每块 1024 个样本进行分组以获得我们的频谱流。</p>
+<p>所以在时间 3.6s 时：</p>
+<p>3.6 / 0.023 = 156.52 - 所以我们预计会在指数 156 附近找到一个峰值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">getIndexFromTime</span><span class="p">(</span><span class="kt">float</span> <span class="n">curTime</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">float</span> <span class="n">lengthPerSample</span> <span class="p">=</span> <span class="k">this</span><span class="p">.</span><span class="n">clipLength</span> <span class="p">/</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">numTotalSamples</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">Mathf</span><span class="p">.</span><span class="n">FloorToInt</span> <span class="p">(</span><span class="n">curTime</span> <span class="p">/</span> <span class="n">lengthPerSample</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">float</span> <span class="n">getTimeFromIndex</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">((</span><span class="m">1f</span> <span class="p">/</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="k">this</span><span class="p">.</span><span class="n">sampleRate</span><span class="p">)</span> <span class="p">*</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="结果"><a href="#结果" class="anchor-link">#</a>结果</h2>
+<p>我们的频谱流输出中的每个 index 仅代表 0.023 秒，而我在大约 3.6s 时听到一个音符，我们检查 index 为 156 的 10 个采样，总共大约半秒，看看我们是否接近。算法在索引 148 处发现了一个峰值。大约相差 8 个索引（约 0.184 秒），结果也算很不错了。</p>
+<p>我们扩大查看音频的窗口，可以看到每 18 个索引或每 0.414 秒会记录一个峰值。 这意味着对于我们正在分析的部分，歌曲的速度大约是 145 BPM。 可以肯定的是，我测试的音频的实际 BPM 是 143 BPM，这对于频谱分析会有令人满意的结果，不过一旦音频 BPM 变化较大，我们还是需要在设置合理的参数以较小算法识别周期上的误差。</p>
+<p>可以使用以下代码进行类似的比较：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">indexToAnalyze</span> <span class="p">=</span> <span class="n">getIndexFromTime</span><span class="p">(</span><span class="m">3.6f</span><span class="p">)</span> <span class="p">/</span> <span class="m">1024</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="n">indexToAnalyze</span> <span class="p">-</span> <span class="m">30</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;=</span> <span class="n">indexToAnalyze</span> <span class="p">+</span> <span class="m">30</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">SpectralFluxInfo</span> <span class="n">sfSample</span> <span class="p">=</span> <span class="n">preProcessedSpectralFluxAnalyzer</span><span class="p">.</span><span class="n">spectralFluxSamples</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Format</span><span class="p">(</span><span class="s">&#34;Index {0} : Time {1} Pruned Spectral Flux {2} : Is Peak {3}&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">getTimeFromIndex</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">*</span> <span class="n">spectrumSampleSize</span><span class="p">,</span> <span class="n">sfSample</span><span class="p">.</span><span class="n">prunedSpectralFlux</span><span class="p">,</span> <span class="n">sfSAmple</span><span class="p">.</span><span class="n">isPeak</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>让我们并排绘制实时分析和预处理分析的输出以进行比较。
+<img alt="GetSpectrumData" src="/images/2022/beat_tracking_result.png">
+上一节实现的实时分析算法的图形在上面，我们实现的预处理的图在下面。
+在图中，我们可以看到一些偏差。实时图上最高的十几个峰值（对应红点）大致对应于预处理图上的相同十几个峰值。偏差是因为我们的实时索引大约相隔 1 帧的时间，这与我们在预处理中的索引的距离不同，它们之间相差了0.023秒。可以看出预处理图的波动和过度记录较少，并且能够记录下来即将播放音频的数据。我们可以访问任意时刻的音频的节拍数据，这是预处理算法最大的优势。</p>
+<p>虽然两个算法的结果可能会有所不同，但这应该可以很好地开始根据音频文件中的节拍创建自己的游戏玩法，它们对于特征接拍的检测还是准确的。</p>
+<h2 id="未来的方向"><a href="#未来的方向" class="anchor-link">#</a>未来的方向</h2>
+<p>一旦我们能可靠且准确地检测到音频文件中的节拍，我们可以尝试一些方法来使算法更加适合我们的音游开发：</p>
+<ol>
+<li>在不同频谱范围上运行频谱流算法。</li>
+<li>找到最适合某一种类型的音乐的阈值灵敏度时间范围和乘数，一首轻缓的音乐和摇滚音乐的参数是有区别的，没有一个通用的参数设置能满足所有的音频。</li>
+<li>深入了解 Threads 以加快预处理分析。</li>
+</ol>
+<p>无论如何，算法给你造好了轮子，你想做什么汽车，完全取决与你了！</p>
+<p>这篇基于Unity的音频检测算法算是完结了，后面我觉得使用人工智能的方式生成音乐很有意思，后面可能尝试的方向就是机器学习和音乐生成相关的内容，敬请期待。</p>
+
+            </div>
+
+            
+
+
+        </article>
+
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+    <footer class="minimal-footer">
+        
+            <div class="post-tag"><a href="/tags/game-design/" rel="tag" class="post-tag-link">#game-design</a> <a href="/tags/tech/" rel="tag" class="post-tag-link">#tech</a></div>
+        
+        
+            <div class="post-category">
+                <a href="/tech/" class="post-category-link active">tech</a> | <a href="/life/" class="post-category-link">life</a>
+            </div>
+        
+        
+    </footer>
+
+
+
+        
+
+
+        
+
+
+        
+
+
+    </div>
+</main>
+
+
+            
+
+            
+
+        </div>
+        
+
+        
+
+
+
+
+
+
+
+
+    <script src="/libs/medium-zoom.min.js"></script>
+
+<script>
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
+        background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
+    })
+</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>

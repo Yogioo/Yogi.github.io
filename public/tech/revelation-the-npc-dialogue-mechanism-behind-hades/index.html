@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+    <head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="UTF-8" />
+
+    <meta name="generator" content="Hugo 0.131.0"><meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light dark">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no" />
+    
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>启示录——哈迪斯背后的NPC对话机制 | illumination</title>
+
+    <link rel="stylesheet" href="/css/meme.min.css" />
+
+    
+    
+        
+            <script src="/js/meme.min.js"></script>
+
+        
+    
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
+        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" /></noscript>
+
+    <meta name="author" content="Mingxian" /><meta name="description" content="主要介绍了哈迪斯(Hades)中NPC的对话机制，开发者是使用什么样的机制，在浩如烟……" />
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#fff" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="illumination" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="illumination" />
+    <meta name="msapplication-starturl" content="../../" />
+    <meta name="msapplication-TileColor" content="#fff" />
+    <meta name="msapplication-TileImage" content="../../icons/mstile-150x150.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    
+    
+
+    
+        <link rel="canonical" href="http://localhost:1313/tech/revelation-the-npc-dialogue-mechanism-behind-hades/" />
+    
+
+<script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "datePublished": "2023-08-19T18:10:00+08:00",
+        "dateModified": "2024-08-11T18:16:22+08:00",
+        "url": "http://localhost:1313/tech/revelation-the-npc-dialogue-mechanism-behind-hades/",
+        "headline": "启示录——哈迪斯背后的NPC对话机制",
+        "description": "主要介绍了哈迪斯(Hades)中NPC的对话机制，开发者是使用什么样的机制，在浩如烟……",
+        "inLanguage" : "zh-hant",
+        "articleSection": "tech",
+        "wordCount":  1322 ,
+        "image": "http://localhost:1313/icons/apple-touch-icon.png",
+        "author": {
+            "@type": "Person",
+            "description": "當你下定決心 結局便成了副產物",
+            "email": "yangmingxian2015@gmail.com",
+            "image": "http://localhost:1313/icons/apple-touch-icon.png",
+            "url": "https://yangmingxian.com/",
+            "name": "Mingxian"
+        },
+        "license": "在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。",
+        "publisher": {
+            "@type": "Organization",
+            "name": "illumination",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://localhost:1313/icons/apple-touch-icon.png"
+            },
+            "url": "http://localhost:1313/"
+        },
+        "mainEntityOfPage": {
+            "@type": "WebSite",
+            "@id": "http://localhost:1313/"
+        }
+    }
+</script>
+
+    
+
+<meta name="twitter:card" content="summary" />
+
+<meta name="twitter:site" content="@CyberStreamer" />
+<meta name="twitter:creator" content="@CyberStreamer" />
+
+    
+
+
+
+<meta property="og:title" content="启示录——哈迪斯背后的NPC对话机制" />
+<meta property="og:description" content="主要介绍了哈迪斯(Hades)中NPC的对话机制，开发者是使用什么样的机制，在浩如烟……" />
+<meta property="og:url" content="http://localhost:1313/tech/revelation-the-npc-dialogue-mechanism-behind-hades/" />
+<meta property="og:site_name" content="illumination" />
+<meta property="og:locale" content="zh-hant" /><meta property="og:image" content="http://localhost:1313/icons/apple-touch-icon.png" />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content="2023-08-19T18:10:00&#43;08:00" />
+    <meta property="article:modified_time" content="2024-08-11T18:16:22&#43;08:00" />
+    
+    <meta property="article:section" content="tech" />
+
+
+
+    
+    
+
+    
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@700&amp;text=reuixiy&amp;display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@700&amp;text=reuixiy&amp;display=swap" /></noscript>
+
+</head>
+
+    <body>
+        <div class="container">
+            
+    <header class="header">
+        
+            <div class="header-wrapper">
+                <div class="header-inner single">
+                    
+    <div class="site-brand">
+        
+            <a href="/" class="brand">illumination</a>
+        
+    </div>
+
+                    <nav class="nav">
+    <ul class="menu" id="menu">
+        
+
+        
+            
+                <li class="menu-item"><a href="/life/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon life"><path d="M301.1 212c4.4 4.4 4.4 11.9 0 16.3l-9.7 9.7c-4.4 4.7-11.9 4.7-16.6 0l-10.5-10.5c-4.4-4.7-4.4-11.9 0-16.6l9.7-9.7c4.4-4.4 11.9-4.4 16.6 0l10.5 10.8zm-30.2-19.7c3-3 3-7.8 0-10.5-2.8-3-7.5-3-10.5 0-2.8 2.8-2.8 7.5 0 10.5 3.1 2.8 7.8 2.8 10.5 0zm-26 5.3c-3 2.8-3 7.5 0 10.2 2.8 3 7.5 3 10.5 0 2.8-2.8 2.8-7.5 0-10.2-3-3-7.7-3-10.5 0zm72.5-13.3c-19.9-14.4-33.8-43.2-11.9-68.1 21.6-24.9 40.7-17.2 59.8.8 11.9 11.3 29.3 24.9 17.2 48.2-12.5 23.5-45.1 33.2-65.1 19.1zm47.7-44.5c-8.9-10-23.3 6.9-15.5 16.1 7.4 9 32.1 2.4 15.5-16.1zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-66.2 42.6c2.5-16.1-20.2-16.6-25.2-25.7-13.6-24.1-27.7-36.8-54.5-30.4 11.6-8 23.5-6.1 23.5-6.1.3-6.4 0-13-9.4-24.9 3.9-12.5.3-22.4.3-22.4 15.5-8.6 26.8-24.4 29.1-43.2 3.6-31-18.8-59.2-49.8-62.8-22.1-2.5-43.7 7.7-54.3 25.7-23.2 40.1 1.4 70.9 22.4 81.4-14.4-1.4-34.3-11.9-40.1-34.3-6.6-25.7 2.8-49.8 8.9-61.4 0 0-4.4-5.8-8-8.9 0 0-13.8 0-24.6 5.3 11.9-15.2 25.2-14.4 25.2-14.4 0-6.4-.6-14.9-3.6-21.6-5.4-11-23.8-12.9-31.7 2.8.1-.2.3-.4.4-.5-5 11.9-1.1 55.9 16.9 87.2-2.5 1.4-9.1 6.1-13 10-21.6 9.7-56.2 60.3-56.2 60.3-28.2 10.8-77.2 50.9-70.6 79.7.3 3 1.4 5.5 3 7.5-2.8 2.2-5.5 5-8.3 8.3-11.9 13.8-5.3 35.2 17.7 24.4 15.8-7.2 29.6-20.2 36.3-30.4 0 0-5.5-5-16.3-4.4 27.7-6.6 34.3-9.4 46.2-9.1 8 3.9 8-34.3 8-34.3 0-14.7-2.2-31-11.1-41.5 12.5 12.2 29.1 32.7 28 60.6-.8 18.3-15.2 23-15.2 23-9.1 16.6-43.2 65.9-30.4 106 0 0-9.7-14.9-10.2-22.1-17.4 19.4-46.5 52.3-24.6 64.5 26.6 14.7 108.8-88.6 126.2-142.3 34.6-20.8 55.4-47.3 63.9-65 22 43.5 95.3 94.5 101.1 59z"/></svg><span class="menu-item-name">生活</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/tech/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon tech"><path d="M512 256c0 141.2-114.7 256-256 256C114.8 512 0 397.3 0 256S114.7 0 256 0s256 114.7 256 256zm-32 0c0-123.2-100.3-224-224-224C132.5 32 32 132.5 32 256s100.5 224 224 224 224-100.5 224-224zM160.9 124.6l86.9 37.1-37.1 86.9-86.9-37.1 37.1-86.9zm110 169.1l46.6 94h-14.6l-50-100-48.9 100h-14l51.1-106.9-22.3-9.4 6-14 68.6 29.1-6 14.3-16.5-7.1zm-11.8-116.3l68.6 29.4-29.4 68.3L230 246l29.1-68.6zm80.3 42.9l54.6 23.1-23.4 54.3-54.3-23.1 23.1-54.3z"/></svg><span class="menu-item-name">技術</span></a>
+                </li>
+            
+        
+            
+                <li class="menu-item"><a href="/about/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon about"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><span class="menu-item-name">關於</span></a>
+                </li>
+            
+        
+            
+                
+                    
+                    
+                        <li class="menu-item">
+                            <a id="theme-switcher" href="#"><span class="icon theme-icon-light">🌞</span><span class="icon theme-icon-dark">🌙</span></a>
+                        </li>
+                    
+                
+            
+        
+            
+                
+            
+        
+    </ul>
+</nav>
+
+                    
+                </div>
+            </div>
+            
+    <input type="checkbox" id="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-toggle"></label>
+    <label for="nav-toggle" class="nav-curtain"></label>
+
+
+        
+    </header>
+
+
+
+
+            
+            
+    <main class="main single" id="main">
+    <div class="main-inner">
+
+        
+
+        <article class="content post h-entry" data-align="justify" data-type="tech" data-toc-num="true">
+
+            <h1 class="post-title p-name">启示录——哈迪斯背后的NPC对话机制</h1>
+
+            
+
+            
+                
+            
+
+            
+
+            <div class="post-body e-content">
+                <p><img alt="哈迪斯的对话机制" src="/images/2022/hades_ft.jpg"></p>
+<blockquote>
+<p>主要介绍了哈迪斯(Hades)中NPC的对话机制，开发者是使用什么样的机制，在浩如烟海的文本中，选择最适合当前代入感的对话的，这不仅给玩家带来游玩过程的临场感，而且还对碎片化世界观的塑造创造了便利。</p>
+</blockquote>
+<h2 id="实现机制"><a href="#实现机制" class="anchor-link">#</a>实现机制</h2>
+<ol>
+<li>首先，每个任务会有一个普通对话的列表，每次玩家触发对话时应当从这个列表中随机选取。（可以使用一个优先级队列来存放这种表）。</li>
+<li>每次触发对话之后，需要暂时将对话从上面的表中移除，当队列中的对话被耗尽时，再次重新恢复所有的对话。</li>
+</ol>
+<p>但是如果只是随机的从列表中抽取对话，当列表很大时，或者是随机性，会削弱玩家和NPC对话之间的关联性。所以还是需要以下的机制来保证玩家对话的关联性以增强游戏角色代入感。</p>
+<p>引入一个新的检测机制：这个检测可以是增量性的，举个简单的例子：玩家完成了击杀10只怪物和击杀100只怪物，所需要的检测是一样的，只是程度上的增加，在游戏里面需要很多这种检测机制，因为随着游戏的进行，玩家的进度大多数是递进的。</p>
+<ol start="3">
+<li>引入一个新的对话列表，这个对话列表的优先级更高，当玩家触发了上述的检测条件（如：完成成就击杀了100只地精），在玩家遇到了NPC之后，NPC会从新的这个列表中抽取相应的对话（如玩家真的很不喜欢地精之类的话语）（再如，你多次重复对话同一NPC，NPC的对话列表会替换成一个更加不耐烦的版本）</li>
+</ol>
+<p>当然随着游戏的进行，有些剧情发生之后，上述的一些对话列表就会过时，所以需要准备第二套，第三套以及更多的对话篇章（这里的对话篇章就是上述的不同优先级的对话列表的优先级队列所组成的更大的集合）</p>
+<ol start="4">
+<li>当玩家解锁了新的篇章之后，需要使用新的对话篇章，更新新的对话列表。当然，触发条件不仅仅局限于剧情递进，还有一些更灵活的触发条件（例如NPC的友好度，玩家的善恶值，NPC和玩家的派系关系等）</li>
+</ol>
+<p>例如玩家在不同好感度的NPC面前，所触发上述的1，2，3条件是一样的，但是由于第4项的不同，所需要触发的对话列表和优先度会发生变化。</p>
+<p>到此为止，SuperGaint Games 所透露的 Hades 的对话机制就到此为止了，不过我相信他们还会有更多更细节的控制来塑造一个栩栩如生的角色对话机制。还是有更多背后的隐藏机制。</p>
+<ul>
+<li>当玩家游玩时，可能连续游玩了200小时，一直不会遇到某个NPC，甚至遇到了NPC，解救了这个NPC却没有和他进行对话，但是NPC确实的的确确对主线剧情有很大的影响，你是否能遇到他以及何时遇到他，都会对故事产生影响。而这一切的基础，都是提前做了大量的对话文本，考虑到了尽可能多的触发条件。</li>
+</ul>
+<h2 id="outro"><a href="#outro" class="anchor-link">#</a>Outro</h2>
+<p>这种文本量巨大的游戏，在玩家游玩时并不会完全展示出来，甚至展示出来的文本对话只是冰山一角，但是却不能省略那些“多余的”工作量。不仅仅如此，在SuperGaint Games的其他游戏《堡垒》《晶体管》《葬火之薪》中，玩家或者是旁白，都尽可能地给玩家营造出身临其境的感觉。</p>
+<p>这就是游戏开发者用大量的工作量换取游戏临场感的方面。不过，在AI大行其道的今天，生成 Dialog 这种文本似乎已经是小菜一碟了，虽然我是程序生成式内容的粉丝，我还是不禁要感叹，手工式的对话文本对比AI生成的文本，真的是费力不讨好的表现吗？每个人都有自己的答案。</p>
+<h2 id="ref"><a href="#ref" class="anchor-link">#</a>Ref</h2>
+<p><a href="https://www.youtube.com/watch?v=bwdYL0KFA_U" target="_blank" rel="noopener">https://www.youtube.com/watch?v=bwdYL0KFA_U</a></p>
+<p><a href="https://yangmingxian.com/" target="_blank" rel="noopener"><strong>作者博客：YMX's Site</strong></a><br>
+<a href="https://space.bilibili.com/22212765" target="_blank" rel="noopener"><strong>作者B站视频：CyberStreamer</strong></a></p>
+
+            </div>
+
+            
+
+
+        </article>
+
+        
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+
+
+        
+    <footer class="minimal-footer">
+        
+            <div class="post-tag"><a href="/tags/game-design/" rel="tag" class="post-tag-link">#game-design</a> <a href="/tags/tech/" rel="tag" class="post-tag-link">#tech</a></div>
+        
+        
+            <div class="post-category">
+                <a href="/tech/" class="post-category-link active">tech</a> | <a href="/life/" class="post-category-link">life</a>
+            </div>
+        
+        
+    </footer>
+
+
+
+        
+
+
+        
+
+
+        
+
+
+    </div>
+</main>
+
+
+            
+
+            
+
+        </div>
+        
+
+        
+
+
+
+
+
+
+
+
+    <script src="/libs/medium-zoom.min.js"></script>
+
+<script>
+    let imgNodes = document.querySelectorAll('div.post-body img');
+    imgNodes = Array.from(imgNodes).filter(node => node.parentNode.tagName !== "A");
+
+    mediumZoom(imgNodes, {
+        background: 'hsla(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l), 0.95)'
+    })
+</script>
+
+
+
+
+
+
+
+
+
+    </body>
+</html>
