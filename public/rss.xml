@@ -9,7 +9,7 @@
     <channel>
         <title>illumination</title>
         <link>http://localhost:1313/</link>
-        <description>這是Mingxian的網路自留地，希望留下一束光可以照耀進黯淡的心</description>
+        <description>Illumination | 這是Mingxian的博客, 分享了生活和技术的点点滴滴</description>
         <generator>Hugo 0.131.0 https://gohugo.io/</generator>
         
             <language>zh-hant</language>
@@ -23,10 +23,54 @@
         
             <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
         
-        <lastBuildDate>Sun, 11 Aug 2024 21:22:31 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 12 Aug 2024 21:25:41 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="http://localhost:1313/rss.xml" />
         
+        
+            <item>
+                <title>Aloha Mingxian</title>
+                <link>http://localhost:1313/life/hello-mingxian/</link>
+                <guid isPermaLink="true">http://localhost:1313/life/hello-mingxian/</guid>
+                <pubDate>Sun, 11 Aug 2024 23:47:02 &#43;0800</pubDate>
+                
+                    <author>yangmingxian2015@gmail.com (Mingxian)</author>
+                
+                <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
+                
+                    <description>&lt;!-- [^1]![1921.jpg](/images/1921.jpg) --&gt;
+&lt;hr&gt;
+&lt;!-- [^1]: 截图自 https://www.youtube.com/watch?v=fdM7KtLqcPE --&gt;</description>
+                
+                
+                
+                    
+                    
+                    
+                        
+                        
+                        
+                            
+                                <category domain="http://localhost:1313/life/">life\</category>
+                            
+                        
+                    
+                
+                
+                
+                    
+                        
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/aphorism/">aphorism</category>
+                                
+                            
+                        
+                    
+                
+            </item>
         
             <item>
                 <title>游戏开发 移动端热更</title>
@@ -165,7 +209,7 @@
 &lt;p&gt;要使用基于扫掠的 CCD，我们在 Inspector 窗口中选择一个刚体 (RigidBody)，并将 Collision Detection 设置为 Continuous 或 Continuous Dynamic 即可。&lt;/p&gt;
 &lt;p&gt;基于扫掠的 CCD 采用撞击时间 (TOI) 算法，通过扫掠对象的前向轨迹来计算对象的潜在碰撞（采用对象的当前速度）。如果沿对象移动方向有接触，该算法会计算撞击时间并移动对象直至达到该时间。代价是需要经历更多的 CPU 周期。&lt;/p&gt;
 &lt;p&gt;然而，因为此方法依赖于线性扫掠，所以会忽略物体的角运动。例如，弹球机上的弹球杆固定在一端，围绕一个固定点旋转。弹球杆只做角运动，不做线性运动，因此无法正确撞击小球：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;gifs/SpeculativeCCD1.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD1.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;已启用 Continuous Dynamic 属性的细杆游戏对象。绕轴心点快速旋转时，此杆不会与球体接触。&lt;/p&gt;
 &lt;p&gt;基于扫掠的 CCD 的另一个问题是性能问题。如果附近有大量启用 CCD 的高速对象，CCD 的开销将由于进行额外的扫掠而很快增加，因此物理引擎不得不执行更多的 CCD 子步骤。&lt;/p&gt;
 &lt;h3 id=&#34;推断性-ccd&#34;&gt;推断性 CCD&lt;/h3&gt;
@@ -173,19 +217,19 @@
 &lt;p&gt;推断性 CCD 的工作原理是基于对象的线性运动和角运动增大一个对象的粗筛阶段轴对齐最小包围盒 (AABB)。该算法是一种推测性的算法，因为会选取下一物理步骤中的所有潜在触点。然后将所有触点送入解算器，因此可确保满足所有的触点约束，使对象不会穿过任何碰撞体。&lt;/p&gt;
 &lt;p&gt;此算法选择所有在下一个物理步骤中潜在的接触点。所有接触点都会被注入到solver中，以确保所有的接触约束都能得到满足，这样物体就不会在碰撞期间引起隧道效应了。&lt;br&gt;
 下图显示了一个从t0移动的球，如果它运动路线上没有墙的话，会移动到 t1。通过将它当前位置扩展为AABB，预测算法获得n1和n2两条法线。算法告诉solver预测这些接触点，以使球不会穿过墙面。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;SpeculativeCCD2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;从t0移动的球，如果它运动路线上没有墙的话，会移动到 t1。通过将它当前位置扩展为AABB，预测算法获得n1和n2两条法线。算法告诉solver预测这些接触点，以使球不会穿过墙面。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;gifs/SpeculativeCCD3.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD3.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;已启用 Continuous Dynamic 属性的细杆游戏对象。绕轴心点快速旋转时，此杆不会与球体接触。&lt;/p&gt;
 &lt;p&gt;但是，推测性 CCD 可能会导致幽灵碰撞；在这种碰撞中，对象的运动受到推测性触点的影响，而这是不应发生的。这是因为推测性 CCD 根据最近点算法收集所有潜在触点，所以触点法线不太准确。这通常会使高速对象沿着细分的碰撞特征滑动并跳起来，但不应该这样。例如，下图中，球体从 t0 开始向右水平移动，积分后的预测位置为 t1。扩大后的 AABB 与框形 b0 和 b1 重叠，而 CCD 在 c0 和 c1 产生两个推测性触点。由于推测性 CCD 使用最近点算法来生成触点，&lt;strong&gt;c0&lt;/strong&gt; 具有非常倾斜的法线，因此解算器会将其视作斜坡。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;SpeculativeCCD4.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD4.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;解算器认为 c0 处的触点是斜坡，因为最近点算法生成了不准确的触点法线。&lt;/p&gt;
 &lt;p&gt;这种非常倾斜的法线导致 t1 在积分后向上跳动，而不是笔直向前移动。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;gifs/SpeculativeCCD5.gif&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD5.gif&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在 c0 处产生的幽灵碰撞导致球体错误地向上跳跃，而不是笔直向前移动&lt;/p&gt;
 &lt;p&gt;推测性 CCD 还可能导致发生穿隧，因为只会在碰撞检测阶段计算推测性触点。在触点求解过程中，如果一个对象从解算器获得太多能量，在积分后，其最终位置可能在初始扩大的 AABB 之外。如果在紧邻 AABB 的外部发生碰撞，对象会从右边穿出。&lt;/p&gt;
 &lt;p&gt;例如，下图显示了球体从 t0 向左移动，而球杆顺时针旋转。如果球体从撞击中获得太多能量，最终可能离开扩大的 AABB（红点矩形），落在 t1 处。如果在紧邻 AABB 的外部发生碰撞（如下面的蓝色框所示），球体最终可能会从右边穿出。这是因为解算器只计算扩大的 AABB 的内部触点，在求解和积分阶段不会执行碰撞检测。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;SpeculativeCCD6.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;SpeculativeCCD&#34; src=&#34;http://localhost:1313/images/2023/SpeculativeCCD6.png&#34;&gt;&lt;/p&gt;
 </description>
                 
                 
@@ -234,7 +278,7 @@
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;p&gt;&lt;img alt=&#34;同步时钟&#34; src=&#34;http://localhost:1313/images/2022/overwatch_ft.png&#34;&gt;&lt;/p&gt;
+                    <description>&lt;p&gt;&lt;img alt=&#34;同步时钟&#34; src=&#34;http://localhost:1313/images/2023/overwatch_ft.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;《守望先锋》采用 ECS架构，打造了丰富多样的游戏玩法，使得其中的每个英雄都在深度上独树一帜而且易于扩展。从托比昂在移动的卡车上建造炮塔，到卢西奥用声波枪攻击敌人，英雄们的技能是独一无二而且复杂的。在2017年的GDC的会议上，暴雪的 Timothy Ford 揭秘了《守望先锋》所使用的游戏技术。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -260,7 +304,7 @@
 &lt;p&gt;最近正好要换一个电脑显示器，看了很多高刷新率的有的刷新率甚至支持高达360Hz的屏幕，那么问题来了：屏幕刷新速度很快，但是网络同步刷新很慢，电竞上面鼓吹的追求极限高刷新率，有用吗？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;让我们看一下《守望先锋》的同步时钟是如何做的，下面是同步时钟的演示图：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;同步时钟&#34; src=&#34;http://localhost:1313/images/2022/clock.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;同步时钟&#34; src=&#34;http://localhost:1313/images/2023/clock.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;上面的客户端(黄色部分)不断地产生新的输入指令，这些指令会在很短的时间内传入服务器(下面的蓝色部分)，从图中我们可以看到，客户端永远比服务器快Buffer+Half RTT的时间：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Buffer：大约16ms&lt;/li&gt;
@@ -270,7 +314,7 @@
 请注意，这里的96ms并不是游玩过程中的延迟，而是服务器和客户端之间同步时钟的距离。在游玩过程中你所需要注意的延迟仅仅只是那16ms的更新帧的长度。这也就解释了为什么你在玩一些游戏的时候，游戏的延迟总是会保持在15-16ms，或是更快一些的6-7ms&lt;/p&gt;
 &lt;p&gt;那么回到刚才的问题：高刷的屏幕到底有用吗，一般游戏的更新帧区间不会小于7ms，也就是144Hz，我的看法是，在当前的环境下，屏幕的刷新率只会影响到你客户端(你的屏幕)所看到的内容的更新速度，也就是一些更加连贯的插值动画，对你的输入操作没有影响。当然这仅限于游戏的同步时钟是FixedUpdate是144Hz的情况，如果其他游戏的同步速率更快，那可能就是另外一种情况了。总的来说是高刷显示器有用，但用处不大，起码对于《守望先锋》来说是用处不大的。&lt;/p&gt;
 &lt;p&gt;让我们来看一下网络同步中的错误预判，下图是玩家由跑动指令变为空闲站立指令的转变：&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;同步时钟2&#34; src=&#34;http://localhost:1313/images/2022/clock2.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;同步时钟2&#34; src=&#34;http://localhost:1313/images/2023/clock2.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;左图中客户端不断地接收用户的run指令，在某一帧指令变成Idle，在服务器接收到idle指令并将idle指令发回客户端之前，客户端的角色状态一直是跑动(左图中紫色部分)，在客户端接收到服务器的idle指令以后，很不幸的是，客户端的角色跑动状态(左图中紫色部分)是错误的预测，那么客户端就会立刻回滚，也就是服务器纠正了客户端的行为，将客户端的角色跑动状态(左图中紫色部分)纠正为右图的Idle状态。这时候就是我在上文提到的&lt;strong&gt;网络同步的副作用&lt;/strong&gt;。&lt;/p&gt;
 &lt;h3 id=&#34;网络问题&#34;&gt;网络问题&lt;/h3&gt;
 &lt;p&gt;众所周知，网络连接不会一直稳定可靠，有时候网络的不稳定和丢包会导致网络同步出现问题，所以这里要讲一下守望先锋是如何处理这方面的问题的。&lt;/p&gt;
@@ -320,15 +364,18 @@
         
             <item>
                 <title>游戏开发的Tips</title>
-                <link>http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%9A%84tips/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E7%9A%84tips/</guid>
+                <link>http://localhost:1313/tech/tips-about-game-design/</link>
+                <guid isPermaLink="true">http://localhost:1313/tech/tips-about-game-design/</guid>
                 <pubDate>Sun, 29 Oct 2023 19:19:00 &#43;0800</pubDate>
                 
                     <author>yangmingxian2015@gmail.com (Mingxian)</author>
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;h2 id=&#34;程序上的技巧&#34;&gt;程序上的技巧&lt;/h2&gt;
+                    <description>&lt;blockquote&gt;
+&lt;p&gt;对基础知识的掌握比较重要，有时候工作或是切实开发几年，脱离了基础知识，等到参加一些注重基础的面试时，啥也不会了。这里会总结一下游戏工程的基石；开发也中很多小小不言的问题，也会聚沙成塔。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;程序上的技巧&#34;&gt;程序上的技巧&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;List的末尾元素 list[^-1]&lt;/p&gt;
@@ -369,7 +416,13 @@
                                 
                                 
                                 
-                                    <category domain="http://localhost:1313/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">游戏设计</category>
+                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
                                 
                             
                         
@@ -379,15 +432,18 @@
         
             <item>
                 <title>游戏开发基础 性能优化</title>
-                <link>http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</guid>
+                <link>http://localhost:1313/tech/game-development-basics-performance-optimization/</link>
+                <guid isPermaLink="true">http://localhost:1313/tech/game-development-basics-performance-optimization/</guid>
                 <pubDate>Thu, 26 Oct 2023 10:55:00 &#43;0800</pubDate>
                 
                     <author>yangmingxian2015@gmail.com (Mingxian)</author>
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;h2 id=&#34;drawcall&#34;&gt;DrawCall&lt;/h2&gt;
+                    <description>&lt;blockquote&gt;
+&lt;p&gt;以 Unity3D 为例，整理了一些性能优化的主要内容和知识点。抛开 Unity 性能优化的方向是类似的，主要内容无非是CPU/GPU/内存/包体积等几个大方向的优化，道理是相通的，知识是可以迁移的，希望能对游戏领域的小伙伴有所帮助。文章部分正在整理和汇总中，格式和内容还有不完善，请见谅。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;drawcall&#34;&gt;DrawCall&lt;/h2&gt;
 &lt;p&gt;Drawcall（绘制调用）是指在图形渲染中，向图形API（如OpenGL或DirectX）发送绘制命令的操作。每次绘制调用都会告诉图形API如何绘制一个或多个图形对象（如三角形、矩形等），包括顶点数据、纹理信息、着色器等。
 在游戏或图形应用中，绘制调用的次数对性能有较大影响。每个绘制调用都会引起CPU和GPU之间的通信开销，而通信开销是比较昂贵的。&lt;br&gt;
 比如你要买水果，一次袋子里只装一个拿回家，往返20次；还是一次装20个只往返一次呢。也许你觉得对于计算机巨大的算力来说这不算什么，但是实际情况是，这种类似的计算每秒要计算上千万次。尽量减少不必要的计算会导致累积的结果发生质的变化。因此，减少绘制调用的次数以提高性能是一个重要且常见的优化手段。&lt;/p&gt;
@@ -524,7 +580,13 @@ UI实例化时，期间会有网格的合并、组件初始化、渲染初始化
                                 
                                 
                                 
-                                    <category domain="http://localhost:1313/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">游戏设计</category>
+                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
                                 
                             
                         
@@ -534,15 +596,18 @@ UI实例化时，期间会有网格的合并、组件初始化、渲染初始化
         
             <item>
                 <title>游戏开发基础 计算机基础</title>
-                <link>http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</guid>
+                <link>http://localhost:1313/tech/game-development-basics-computer-basics/</link>
+                <guid isPermaLink="true">http://localhost:1313/tech/game-development-basics-computer-basics/</guid>
                 <pubDate>Sun, 22 Oct 2023 12:00:00 &#43;0800</pubDate>
                 
                     <author>yangmingxian2015@gmail.com (Mingxian)</author>
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;p&gt;记得第一次面试的时候, 面试的岗位是Unity开发, 面试官第一个问题就是: 你都用过什么设计模式，我一听就觉得，坏了，这个面试官喜欢考八股文，那时候还没看过设计模式，听起来就高大上啊，毫无悬念的不会。后来我去看了一点设计模式，看过之后忍不住感叹一句：就这？我得到了一个观点：设计模式这种东西，既有用也没用。虽然后面写到那我们再说。不过抛开这些来说，一个人真正的能力是基于他的基础知识的，有了基础之后才会知其然知其所以然，只有当你知道这些东西之后，你才有资格评判它们。&lt;/p&gt;
+                    <description>&lt;blockquote&gt;
+&lt;p&gt;本篇文章介绍了游戏开发中一些比较基础的知识，内容涉及到了一些计算机网络、计算机组成原理、设计模式、操作系统的内容，内容覆盖面广，但是其实并不是很深入，明白原理和概念即可。文章作于面试前夕，复习的时候顺便记录一下学习的足迹。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;记得第一次面试的时候, 面试的岗位是Unity开发, 面试官第一个问题就是: 你都用过什么设计模式，我一听就觉得，坏了，这个面试官喜欢考八股文，那时候还没看过设计模式，听起来就高大上啊，毫无悬念的不会。后来我去看了一点设计模式，看过之后忍不住感叹一句：就这？我得到了一个观点：设计模式这种东西，既有用也没用。虽然后面写到那我们再说。不过抛开这些来说，一个人真正的能力是基于他的基础知识的，有了基础之后才会知其然知其所以然，只有当你知道这些东西之后，你才有资格评判它们。&lt;/p&gt;
 &lt;h2 id=&#34;计算机网络&#34;&gt;计算机网络&lt;/h2&gt;
 &lt;h3 id=&#34;网络层次划分&#34;&gt;网络层次划分&lt;/h3&gt;
 &lt;p&gt;在计算机网络中，网络层次划分通常指的是OSI模型（开放式系统互联模型）或TCP/IP模型中的网络层次结构。
@@ -612,7 +677,7 @@ UI实例化时，期间会有网格的合并、组件初始化、渲染初始化
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;TCP/IP&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;OSI 第 5、6、7 层在 TCP/IP 中合并为一个应用层。OSI 第 1 层、第 2 层在 TCP/IP 中合并为一个网络访问层，但 TCP/IP 不负责排序和确认功能，而是将这些功能留给底层传输层。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;OSI和TCP/IP的结构&#34; src=&#34;OSI-TCP.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;OSI和TCP/IP的结构&#34; src=&#34;http://localhost:1313/images/2023/OSI-TCP.jpg&#34;&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -655,7 +720,7 @@ TCP（Transmission Control Protocol）和UDP（User Datagram Protocol）是计�
 &lt;p&gt;&lt;strong&gt;TCP&lt;/strong&gt;是一种面向连接的可靠传输协议。在使用TCP进行通信时，发送方和接收方需要先建立一个连接，然后通过这个连接进行数据的传输。TCP通过序列号和确认机制来保证数据的可靠性，确保数据按照正确的顺序到达目标地点。如果发生数据丢失或损坏，TCP会自动进行重传，直到数据被正确接收。TCP还可以进行拥塞控制，根据网络的情况动态调整数据的发送速率，以避免网络拥塞。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;UDP&lt;/strong&gt;是一种无连接的不可靠传输协议。在使用UDP进行通信时，发送方直接将数据报发送给接收方，而不需要建立连接。UDP不提供数据的可靠性保证和重传机制，因此在传输过程中可能会出现数据丢失或乱序的情况。UDP的优点是传输效率高，适用于对实时性要求较高但对数据可靠性要求不高的应用场景，例如音视频传输和在线游戏中的实时操作&lt;/p&gt;
 &lt;h3 id=&#34;tcpip的三次握手&#34;&gt;TCP/IP的三次握手&lt;/h3&gt;
-&lt;p&gt;&lt;img alt=&#34;TCP/IP的三次握手&#34; src=&#34;tcp.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;TCP/IP的三次握手&#34; src=&#34;http://localhost:1313/images/2023/tcp.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;步骤1 (SYN)&lt;/strong&gt;：第一步，客户端要与服务器建立连接，因此它发送一个带有SYN（同步序列号）的报文段，告知服务器客户端可能开始通信以及以什么顺序开始通信分段开始的编号&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;步骤 2（SYN + ACK）&lt;/strong&gt;：服务器使用设置的 SYN-ACK 信号位来响应客户端请求。确认 (ACK) 表示对收到的数据段的响应，SYN 表示可能以什么序列号开始数据段&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;步骤 3 (ACK)&lt;/strong&gt;：在最后一部分中，客户端确认服务器的响应，并且双方建立可靠的连接，并通过该连接开始实际的数据传输&lt;/p&gt;
@@ -814,7 +879,13 @@ seq-uence number  序列号&lt;/p&gt;
                                 
                                 
                                 
-                                    <category domain="http://localhost:1313/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">游戏设计</category>
+                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
                                 
                             
                         
@@ -824,20 +895,23 @@ seq-uence number  序列号&lt;/p&gt;
         
             <item>
                 <title>游戏开发基础 图形学基础</title>
-                <link>http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/</guid>
+                <link>http://localhost:1313/tech/game-development-basics-graphics-basics/</link>
+                <guid isPermaLink="true">http://localhost:1313/tech/game-development-basics-graphics-basics/</guid>
                 <pubDate>Sat, 21 Oct 2023 14:45:00 &#43;0800</pubDate>
                 
                     <author>yangmingxian2015@gmail.com (Mingxian)</author>
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;h2 id=&#34;图形管线&#34;&gt;图形管线&lt;/h2&gt;
+                    <description>&lt;blockquote&gt;
+&lt;p&gt;图形学知识是基础，即便你在使用的游戏引擎已经帮你完成了大多数工作，但是这些基础的概念有助于你对渲染的过程有更好的理解，才会知其所以然。所以趁着复习的机会在这里整理一些必要的知识基础。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;图形管线&#34;&gt;图形管线&lt;/h2&gt;
 &lt;h3 id=&#34;图形管线概述&#34;&gt;图形管线概述&lt;/h3&gt;
 &lt;p&gt;图形管线，这是绝大多数计算机渲染的基础过程。渲染管线其实并不是一个很高深的名词，也有的人会叫做图形学管线、GPU渲染管线等，只是表示计算机如何把图形图像信息显示到你的屏幕上来这一过程，因为类似于工厂的流水线，所以才叫管线。&lt;/p&gt;
 &lt;p&gt;图形管线要把模型转换成屏幕画面的过程，由于这个过程中所进行的操作严重依赖用户所使用的软件、硬件等，因此并不存在通用的绘图流水线。尽管如此，现今存在着类似Vulkan、OpenGL和DirectX的图形接口，将相似的操作统一起来，并把底层硬件抽象化，以减轻程序员的负担，逐渐成为最为主流的图形接口。&lt;/p&gt;
 &lt;p&gt;泛化的来讲，图形管线在概念上一般分为3大阶段：
-&lt;img alt=&#34;GP&#34; src=&#34;GP.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;GP&#34; src=&#34;http://localhost:1313/images/2023/GP.png&#34;&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;应用阶段(Application)&lt;/strong&gt;: 主要在CPU中进行，将所有图元（通常是三角形、线和点）传递到GPU的渲染管线，除此之外还有一些空间细分、碰撞检测、动画、变形都在此阶段进行，这些有助于减少内存使用。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;几何阶段(Geometry)&lt;/strong&gt;: 主要负责对输入的几何数据进行处理和转换。包括顶点着色器（Vertex Shader），它对输入的顶点进行变换和处理，例如执行模型变换、视图变换和投影变换等；还包括曲面细分（Tessellation）和几何着色器（Geometry Shader）等。&lt;/li&gt;
@@ -876,7 +950,7 @@ seq-uence number  序列号&lt;/p&gt;
 这里的裁剪不同于剔除，剔除是决定图元需不需要渲染，而NDC裁剪在这里是将图元裁剪，这会减少部分像素处理的工作，如下图所示(值得注意的是，真实的渲染管线要复杂得多，这里只是说个大概意思)：&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;img alt=&#34;ndc&#34; src=&#34;ndc.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;ndc&#34; src=&#34;http://localhost:1313/images/2023/ndc.png&#34;&gt;&lt;/p&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;屏幕映射：主要将之前步骤得到的坐标映射到屏幕坐标系。&lt;/li&gt;
 &lt;/ol&gt;
@@ -1031,7 +1105,13 @@ V_rotated = [0.707, 0, 0.707]
                                 
                                 
                                 
-                                    <category domain="http://localhost:1313/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">游戏设计</category>
+                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
                                 
                             
                         
@@ -1041,15 +1121,18 @@ V_rotated = [0.707, 0, 0.707]
         
             <item>
                 <title>游戏开发基础 语言基础</title>
-                <link>http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</guid>
+                <link>http://localhost:1313/tech/game-development-basics-language-basics/</link>
+                <guid isPermaLink="true">http://localhost:1313/tech/game-development-basics-language-basics/</guid>
                 <pubDate>Sat, 07 Oct 2023 12:10:00 &#43;0800</pubDate>
                 
                     <author>yangmingxian2015@gmail.com (Mingxian)</author>
                 
                 <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
                 
-                    <description>&lt;h2 id=&#34;引用类型与值类型&#34;&gt;引用类型与值类型&lt;/h2&gt;
+                    <description>&lt;blockquote&gt;
+&lt;p&gt;对基础知识的掌握比较重要，有时候工作或是切实开发几年，脱离了基础知识，等到参加一些注重基础的面试时，啥也不会了。这里会总结一下游戏工程的基石；开发也中很多小小不言的问题，也会聚沙成塔。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;引用类型与值类型&#34;&gt;引用类型与值类型&lt;/h2&gt;
 &lt;p&gt;引用类型和值类型&lt;strong&gt;最根本&lt;/strong&gt;的区别就是其在&lt;strong&gt;内存分配&lt;/strong&gt;上的差异：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Stack 栈&lt;/strong&gt;：线程所管理和使用的栈，存放的是值类型和引用类型的地址。
 &lt;strong&gt;GC Heap 堆&lt;/strong&gt;：CLR加载到内存后，进程的可用地址空间分配的一段地址空间。引用类型分配在托管堆上，由GC管理。&lt;/p&gt;
@@ -1255,7 +1338,13 @@ struct属于值类型，要想改变struct里面元素的值，只能是new一�
                                 
                                 
                                 
-                                    <category domain="http://localhost:1313/tags/%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">游戏设计</category>
+                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
+                                
+                            
+                                
+                                
+                                
+                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
                                 
                             
                         
@@ -1306,84 +1395,6 @@ struct属于值类型，要想改变struct里面元素的值，只能是new一�
 &lt;p&gt;当我决定打造一个‘公平Roguelike’游戏的时候，并没有预测到会做成《节奏地牢》现在这个样，而且当我决定加入节奏游戏玩法的时候，也没有想到最终去掉了对韵律感的要求。但我对于最终做出来的游戏感到高兴，我认为自己尝试玩很多游戏是调整优化的关键因素，保持开放的设计思路是完成最初意想不到结果的原因。&lt;/p&gt;
 &lt;h2 id=&#34;outro&#34;&gt;Outro&lt;/h2&gt;
 &lt;h2 id=&#34;ref&#34;&gt;Ref&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://yangmingxian.com/&#34;&gt;&lt;strong&gt;作者博客：YMX&#39;s Site&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;
-&lt;a href=&#34;https://space.bilibili.com/22212765&#34;&gt;&lt;strong&gt;作者B站视频：CyberStreamer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-</description>
-                
-                
-                
-                    
-                    
-                    
-                        
-                        
-                        
-                            
-                                <category domain="http://localhost:1313/tech/">tech\</category>
-                            
-                        
-                    
-                
-                
-                
-                    
-                        
-                            
-                                
-                                
-                                
-                                    <category domain="http://localhost:1313/tags/game-design/">Game Design</category>
-                                
-                            
-                                
-                                
-                                
-                                    <category domain="http://localhost:1313/tags/tech/">Tech</category>
-                                
-                            
-                        
-                    
-                
-            </item>
-        
-            <item>
-                <title>启示录——哈迪斯背后的NPC对话机制</title>
-                <link>http://localhost:1313/tech/revelation-the-npc-dialogue-mechanism-behind-hades/</link>
-                <guid isPermaLink="true">http://localhost:1313/tech/revelation-the-npc-dialogue-mechanism-behind-hades/</guid>
-                <pubDate>Sat, 19 Aug 2023 18:10:00 &#43;0800</pubDate>
-                
-                    <author>yangmingxian2015@gmail.com (Mingxian)</author>
-                
-                <copyright>在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。</copyright>
-                
-                    <description>&lt;p&gt;&lt;img alt=&#34;哈迪斯的对话机制&#34; src=&#34;http://localhost:1313/images/2022/hades_ft.jpg&#34;&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;主要介绍了哈迪斯(Hades)中NPC的对话机制，开发者是使用什么样的机制，在浩如烟海的文本中，选择最适合当前代入感的对话的，这不仅给玩家带来游玩过程的临场感，而且还对碎片化世界观的塑造创造了便利。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;实现机制&#34;&gt;实现机制&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;首先，每个任务会有一个普通对话的列表，每次玩家触发对话时应当从这个列表中随机选取。（可以使用一个优先级队列来存放这种表）。&lt;/li&gt;
-&lt;li&gt;每次触发对话之后，需要暂时将对话从上面的表中移除，当队列中的对话被耗尽时，再次重新恢复所有的对话。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;但是如果只是随机的从列表中抽取对话，当列表很大时，或者是随机性，会削弱玩家和NPC对话之间的关联性。所以还是需要以下的机制来保证玩家对话的关联性以增强游戏角色代入感。&lt;/p&gt;
-&lt;p&gt;引入一个新的检测机制：这个检测可以是增量性的，举个简单的例子：玩家完成了击杀10只怪物和击杀100只怪物，所需要的检测是一样的，只是程度上的增加，在游戏里面需要很多这种检测机制，因为随着游戏的进行，玩家的进度大多数是递进的。&lt;/p&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;引入一个新的对话列表，这个对话列表的优先级更高，当玩家触发了上述的检测条件（如：完成成就击杀了100只地精），在玩家遇到了NPC之后，NPC会从新的这个列表中抽取相应的对话（如玩家真的很不喜欢地精之类的话语）（再如，你多次重复对话同一NPC，NPC的对话列表会替换成一个更加不耐烦的版本）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;当然随着游戏的进行，有些剧情发生之后，上述的一些对话列表就会过时，所以需要准备第二套，第三套以及更多的对话篇章（这里的对话篇章就是上述的不同优先级的对话列表的优先级队列所组成的更大的集合）&lt;/p&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;当玩家解锁了新的篇章之后，需要使用新的对话篇章，更新新的对话列表。当然，触发条件不仅仅局限于剧情递进，还有一些更灵活的触发条件（例如NPC的友好度，玩家的善恶值，NPC和玩家的派系关系等）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;例如玩家在不同好感度的NPC面前，所触发上述的1，2，3条件是一样的，但是由于第4项的不同，所需要触发的对话列表和优先度会发生变化。&lt;/p&gt;
-&lt;p&gt;到此为止，SuperGaint Games 所透露的 Hades 的对话机制就到此为止了，不过我相信他们还会有更多更细节的控制来塑造一个栩栩如生的角色对话机制。还是有更多背后的隐藏机制。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;当玩家游玩时，可能连续游玩了200小时，一直不会遇到某个NPC，甚至遇到了NPC，解救了这个NPC却没有和他进行对话，但是NPC确实的的确确对主线剧情有很大的影响，你是否能遇到他以及何时遇到他，都会对故事产生影响。而这一切的基础，都是提前做了大量的对话文本，考虑到了尽可能多的触发条件。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;outro&#34;&gt;Outro&lt;/h2&gt;
-&lt;p&gt;这种文本量巨大的游戏，在玩家游玩时并不会完全展示出来，甚至展示出来的文本对话只是冰山一角，但是却不能省略那些“多余的”工作量。不仅仅如此，在SuperGaint Games的其他游戏《堡垒》《晶体管》《葬火之薪》中，玩家或者是旁白，都尽可能地给玩家营造出身临其境的感觉。&lt;/p&gt;
-&lt;p&gt;这就是游戏开发者用大量的工作量换取游戏临场感的方面。不过，在AI大行其道的今天，生成 Dialog 这种文本似乎已经是小菜一碟了，虽然我是程序生成式内容的粉丝，我还是不禁要感叹，手工式的对话文本对比AI生成的文本，真的是费力不讨好的表现吗？每个人都有自己的答案。&lt;/p&gt;
-&lt;h2 id=&#34;ref&#34;&gt;Ref&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=bwdYL0KFA_U&#34;&gt;https://www.youtube.com/watch?v=bwdYL0KFA_U&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://yangmingxian.com/&#34;&gt;&lt;strong&gt;作者博客：YMX&#39;s Site&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;
 &lt;a href=&#34;https://space.bilibili.com/22212765&#34;&gt;&lt;strong&gt;作者B站视频：CyberStreamer&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 </description>

@@ -27,10 +27,7 @@
         
     
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" media="print" onload="this.media='all'" />
-        <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto&#43;Serif&#43;TC:wght@400;500;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;500;700&amp;family=Source&#43;Code&#43;Pro:ital,wght@0,400;0,700;1,400;1,700&amp;family=Cinzel&#43;Decorative:wght@700&amp;display=swap" /></noscript>
+    
 
     <meta name="author" content="Mingxian" /><meta name="description" content="1 音乐游戏中大量的节拍需要大量的人力和时间成本，那么为什么不用代码分析节奏然后自动生……" />
 
@@ -59,13 +56,13 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "datePublished": "2021-07-01T18:10:00+08:00",
-        "dateModified": "2024-08-11T12:26:49+08:00",
+        "dateModified": "2024-08-12T21:25:22+08:00",
         "url": "http://localhost:1313/tech/beat_tracking_in_unity_introduction/",
         "headline": "Unity中的音频分析算法：介绍",
         "description": "1 音乐游戏中大量的节拍需要大量的人力和时间成本，那么为什么不用代码分析节奏然后自动生……",
         "inLanguage" : "zh-hant",
         "articleSection": "tech",
-        "wordCount":  1339 ,
+        "wordCount":  1171 ,
         "image": "http://localhost:1313/icons/apple-touch-icon.png",
         "author": {
             "@type": "Person",
@@ -110,7 +107,7 @@
 <meta property="og:locale" content="zh-hant" /><meta property="og:image" content="http://localhost:1313/icons/apple-touch-icon.png" />
     <meta property="og:type" content="article" />
     <meta property="article:published_time" content="2021-07-01T18:10:00&#43;08:00" />
-    <meta property="article:modified_time" content="2024-08-11T12:26:49&#43;08:00" />
+    <meta property="article:modified_time" content="2024-08-12T21:25:22&#43;08:00" />
     
     <meta property="article:section" content="tech" />
 
@@ -151,12 +148,12 @@
             
         
             
-                <li class="menu-item"><a href="/tech/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon tech"><path d="M512 256c0 141.2-114.7 256-256 256C114.8 512 0 397.3 0 256S114.7 0 256 0s256 114.7 256 256zm-32 0c0-123.2-100.3-224-224-224C132.5 32 32 132.5 32 256s100.5 224 224 224 224-100.5 224-224zM160.9 124.6l86.9 37.1-37.1 86.9-86.9-37.1 37.1-86.9zm110 169.1l46.6 94h-14.6l-50-100-48.9 100h-14l51.1-106.9-22.3-9.4 6-14 68.6 29.1-6 14.3-16.5-7.1zm-11.8-116.3l68.6 29.4-29.4 68.3L230 246l29.1-68.6zm80.3 42.9l54.6 23.1-23.4 54.3-54.3-23.1 23.1-54.3z"/></svg><span class="menu-item-name">技術</span></a>
+                <li class="menu-item"><a href="/tech/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon tech"><path d="M512 256c0 141.2-114.7 256-256 256C114.8 512 0 397.3 0 256S114.7 0 256 0s256 114.7 256 256zm-32 0c0-123.2-100.3-224-224-224C132.5 32 32 132.5 32 256s100.5 224 224 224 224-100.5 224-224zM160.9 124.6l86.9 37.1-37.1 86.9-86.9-37.1 37.1-86.9zm110 169.1l46.6 94h-14.6l-50-100-48.9 100h-14l51.1-106.9-22.3-9.4 6-14 68.6 29.1-6 14.3-16.5-7.1zm-11.8-116.3l68.6 29.4-29.4 68.3L230 246l29.1-68.6zm80.3 42.9l54.6 23.1-23.4 54.3-54.3-23.1 23.1-54.3z"/></svg><span class="menu-item-name">技术</span></a>
                 </li>
             
         
             
-                <li class="menu-item"><a href="/about/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon about"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><span class="menu-item-name">關於</span></a>
+                <li class="menu-item"><a href="/about/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="icon about"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><span class="menu-item-name">自述</span></a>
                 </li>
             
         
@@ -218,10 +215,10 @@
 <p>音乐游戏中大量的节拍需要大量的人力和时间成本，那么为什么不用代码分析节奏然后自动生成呢？Audiosurf的的创造者Dylan Fitterer开创了使用代码生成音游谱面的先河，并且取得了不错的成果。节拍映射成为了音乐游戏发展的一个重要方向。</p>
 </blockquote>
 <h2 id="本系列文章"><a href="#本系列文章" class="anchor-link">#</a>本系列文章</h2>
-<p>[<strong>Unity中的音频分析算法：介绍</strong>]({% post_url 2021-07-01-Unity中的音频分析算法：介绍 %})</p>
-<p>[<strong>Unity中的音频分析算法：使用 Unity API 进行实时音频分析</strong>]({% post_url 2021-07-02-Unity中的音频分析算法：使用 Unity API 进行实时音频分析 %})</p>
-<p>[<strong>Unity中的音频分析算法：预处理音频分析</strong>]({% post_url 2022-03-21-Unity中的音频分析算法：预处理音频分析 %})</p>
-<p><a href="https://www.bilibili.com/video/BV1zY4y1h7DL/" target="_blank" rel="noopener">演示视频链接：https://www.bilibili.com/video/BV1zY4y1h7DL/</a></p>
+<p><a href="/tech/beat_tracking_in_unity_introduction"><strong>Unity中的音频分析算法：介绍</strong></a></p>
+<p><a href="/tech/audio-analysis-algorithms-in-unity-real-time-audio-analysis/"><strong>Unity中的音频分析算法：使用 Unity API 进行实时音频分析</strong></a></p>
+<p><a href="/tech/audio-analysis-algorithms-in-unity-preprocessing-audio-analysis"><strong>Unity中的音频分析算法：预处理音频分析</strong></a></p>
+<!-- [演示视频链接：https://www.bilibili.com/video/BV1zY4y1h7DL/](https://www.bilibili.com/video/BV1zY4y1h7DL/) -->
 <h2 id="前言"><a href="#前言" class="anchor-link">#</a>前言</h2>
 <p>随着众多成功的节奏游戏上市, 节奏游戏已成为游戏开发中的一大热门领域. 雷亚公司的Deemo以及Cytus和Cytus2在国内音游占有绝对优势, 还有在全球市场上占有绝对份额的老牌音游OSU!. 音乐游戏中大量的节拍需要大量的人力和时间成本，那么为什么不用代码分析节奏然后自动生成呢？Audiosurf的的创造者Dylan Fitterer开创了使用代码生成音游谱面的先河，并且取得了不错的成果。节拍映射成为了音乐游戏发展的一个重要方向。</p>
 <p>那使用代码进行自动曲谱生成的音乐游戏有很多吗？其实答案是很少。事实上，市面上大部分优秀的音游作品基本上都是Mapper们手工录入的，即便是代码处理音频的音游存在，基本上也都是拿到了音乐本身的音轨信息（如MIDI文件）。代码生成的曲谱识别率是一个瓶颈问题，生成的节拍Note对应的也不会十分完美，对于音游来说，糟糕的交互反馈意味着糟糕的游戏质量。</p>
@@ -292,8 +289,23 @@
 
 
             
+    <div id="back-to-top" class="back-to-top">
+        <a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icon arrow-up"><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg></a>
+    </div>
+
 
             
+    <footer id="footer" class="footer">
+        <div class="footer-inner">
+            <div class="site-info">©&nbsp;2015–2024&nbsp;<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="icon footer-icon"><path d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"/></svg>&nbsp;Mingxian</div>
+
+            
+
+
+            
+        </div>
+    </footer>
+
 
         </div>
         

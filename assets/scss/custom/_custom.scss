@@ -14,7 +14,7 @@
 }
 
 .brand {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Amstelvar', sans-serif;
     font-weight: bold;
     line-height: 1;
 }
@@ -183,6 +183,46 @@ hr.coldplay {
     font-stretch: 50% 125%;
     font-style: italic;
 }
+
+@font-face {
+    font-family: 'Noto Serif SC';
+    font-display: swap;
+    src: url('#{$baseRelURL}/fonts/NotoSerifSC-VF.woff2') format('woff2-variations'),
+    url('#{$baseRelURL}/fonts/NotoSerifSC-VF.woff2') format('woff2');
+    font-weight: 100 900;
+    font-stretch: 50% 125%;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto Serif TC';
+    font-display: swap;
+    src: url('#{$baseRelURL}/fonts/NotoSerifTC-VF.woff2') format('woff2-variations'),
+    url('#{$baseRelURL}/fonts/NotoSerifTC-VF.woff2') format('woff2');
+    font-weight: 100 900;
+    font-stretch: 50% 125%;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    font-display: swap;
+    src: url('#{$baseRelURL}/fonts/SourceCodePro-VF.woff2') format('woff2');
+    font-weight: 100 900;
+    font-stretch: 50% 125%;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cinzel Decorative';
+    font-display: swap;
+    src: url('#{$baseRelURL}/fonts/CinzelDecorative.woff2') format('woff2-variations'),
+    url('#{$baseRelURL}/fonts/CinzelDecorative.woff2') format('woff2');
+    font-weight: 100 900;
+    font-stretch: 50% 125%;
+    font-style: normal;
+}
+
 
 :root {
     --text-wdth: 90;
