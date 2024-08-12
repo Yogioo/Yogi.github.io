@@ -5,7 +5,7 @@ tags = ["Game Design", "Tech"]
 slug = "Audio Analysis Algorithms in Unity: Real-time Audio Analysis"
 indent = false
 dropCap = false
-katex = true
+# katex = true
 +++
 
 

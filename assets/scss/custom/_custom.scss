@@ -6,7 +6,10 @@
     margin-top: 4em !important;
 }
 
-.list-title, .term-title, .list-year, .list-month {
+.list-title,
+.term-title,
+.list-year,
+.list-month {
     font-family: 'glyph-correction', 'Cinzel Decorative', 'Noto Serif TC', 'Noto Serif SC', serif;
 }
 
@@ -28,21 +31,29 @@
 .life {
     color: #f37055;
 }
+
 .tech {
     color: #a166ab;
 }
+
 .about {
     color: #07b39b;
 }
 
 .menu-item {
-    .life, .tech, .about {
+
+    .life,
+    .tech,
+    .about {
         display: none;
     }
 }
 
 [data-theme="dark"] {
-    .theme-icon-dark, #lang-switcher, .footer-icon {
+
+    .theme-icon-dark,
+    #lang-switcher,
+    .footer-icon {
         opacity: 0.75;
     }
 }
@@ -55,11 +66,16 @@
     .nav {
         margin: 2em 0;
     }
+
     .menu-item {
-        .life, .tech, .about {
+
+        .life,
+        .tech,
+        .about {
             display: inline-block;
         }
     }
+
     .menu-item-name {
         font-size: 80%;
     }
@@ -69,11 +85,13 @@
             display: inline;
         }
     }
+
     [data-theme="dark"] {
         .theme-icon-dark {
             display: inline !important;
         }
     }
+
     #lang-switcher {
         margin: 0;
     }
@@ -103,6 +121,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
 .minimal-footer-about {
     font-variant: small-caps;
 }
@@ -112,10 +131,12 @@ hr.coldplay {
     background-size: cover;
     background-repeat: no-repeat;
     height: 3px;
+
     &::after {
         content: none;
     }
 }
+
 .coldplay-footer {
     text-align: right;
     font-size: 80%;
@@ -126,11 +147,13 @@ hr.coldplay {
         border: none;
         margin: 2.427em 0 1.5em;
     }
+
     img {
         display: block;
         margin: 2em auto;
         max-width: 100%;
     }
+
     ul {
         padding-left: 2em;
         line-height: $lineHeight;
@@ -145,16 +168,17 @@ hr.coldplay {
     font-family: 'Amstelvar';
     font-display: swap;
     src: url('#{$baseRelURL}/fonts/Amstelvar-Roman-VF.woff2') format('woff2-variations'),
-         url('#{$baseRelURL}/fonts/Amstelvar-Roman-VF.woff2') format('woff2');
+    url('#{$baseRelURL}/fonts/Amstelvar-Roman-VF.woff2') format('woff2');
     font-weight: 100 900;
     font-stretch: 50% 125%;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Amstelvar';
     font-display: swap;
     src: url('#{$baseRelURL}/fonts/Amstelvar-Italic-VF.woff2') format('woff2-variations'),
-         url('#{$baseRelURL}/fonts/Amstelvar-Italic-VF.woff2') format("woff2");
+    url('#{$baseRelURL}/fonts/Amstelvar-Italic-VF.woff2') format("woff2");
     font-weight: 100 900;
     font-stretch: 50% 125%;
     font-style: italic;
@@ -204,6 +228,11 @@ article:lang(en) .drop-cap {
     //     'YOPQ' 90;
 }
 
+.list-item-title {
+    font-size: 17px;
+    font-feature-settings: 'tnum';
+}
+
 .list-item-time {
     font-feature-settings: 'tnum';
 }
@@ -215,9 +244,11 @@ blockquote.quote {
     padding-left: 3em;
     color: inherit;
     border: none;
+
     p {
         text-indent: 0 !important;
     }
+
     &::before {
         position: absolute;
         left: 0;
@@ -226,19 +257,24 @@ blockquote.quote {
         font-weight: bold;
         line-height: 1;
     }
+
     &.poetry {
         display: table;
         padding: 0;
+
         &::before {
             left: -1em;
         }
+
         p {
             margin: 0 0 1em;
         }
+
         p:last-child {
             margin: 0;
         }
     }
+
     &.en {
         p {
             line-height: 1.618;
@@ -247,6 +283,7 @@ blockquote.quote {
             font-variation-settings: normal;
         }
     }
+
     &.italic {
         p {
             font-style: italic;
@@ -258,6 +295,7 @@ blockquote.quote {
     blockquote.quote {
         &.poetry {
             padding-left: 3em;
+
             &::before {
                 left: 0;
             }

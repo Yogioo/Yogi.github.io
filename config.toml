@@ -243,14 +243,14 @@ post = "grav"
 identifier = "life"
 [[menu.main]]
 pageref = "/tech/"
-name = "技術"
+name = "技术"
 weight = 2
 pre = "internal"
 post = "wpexplorer"
 identifier = "tech"
 [[menu.main]]
 pageref = "/about/"
-name = "關於"
+name = "自述"
 weight = 3
 pre = "internal"
 post = "user-circle"
@@ -278,18 +278,18 @@ identifier = "about"
 
 ## 社交欄
 [[menu.socials]]
-url = "https://github.com/reuixiy"
+url = "https://github.com/yangmingxian"
 name = "GitHub"
 weight = 1
 pre = "external"
+# [[menu.socials]]
+# url = "https://t.me/yangmingxian"
+# name = "Telegram"
+# weight = 2
+# pre = "external"
 [[menu.socials]]
-url = "https://t.me/yixiuer"
-name = "Telegram"
-weight = 2
-pre = "external"
-[[menu.socials]]
-url = "https://reuixiy.notion.site/2f10796bae1a4bddb1276a51d3f2118d"
-name = "Others"
+url = "https://yangmingxian.notion.site/illumination-349fe74c80c1489e82679fe2118eda56"
+name = "Notion"
 weight = 3
 pre = "external"
 
@@ -299,11 +299,11 @@ pageref = "/"
 name = "Home"
 weight = 1
 pre = "internal"
-[[menu.links]]
-pageref = "/coldplay/"
-name = "Coldplay"
-weight = 2
-pre = "internal"
+# [[menu.links]]
+# pageref = "/coldplay/"
+# name = "Coldplay"
+# weight = 2
+# pre = "internal"
 [[menu.links]]
 pageref = "/tags/"
 name = "Tags"
@@ -322,7 +322,7 @@ pre = "internal"
 enableHeader = true
 
 # 是否自動隱藏
-enableHeaderAutoHide = false
+enableHeaderAutoHide = true
 # 說明：僅對彈性佈局的頂欄有效
 
 # 是否在首頁顯示
@@ -393,7 +393,7 @@ homeLayout = "poetry"
 ## 「詩意人生」
 # 詩句，支援 Markdown
 # homePoetry = ["暗夜中", "渴望一束光的關懷", "在白天", "卻更渴望黑洞的吞噬", "因為好奇心，想看看黑暗中有甚麼"]
-homePoetry = ["暗夜深處", "渴望一束光的撫慰", "亦為探尋那隱秘的答案", "終於", "于黑暗彼端", "觸碰到了遙遠的星辰"]
+homePoetry = ["黑暗中","渴望一束光的抚慰", "亦为探寻未知的答案", "终于", "于黑暗彼端", "触碰到了遥远的星辰"]
 
 # 底部連結的內間距，單位：em
 homeLinksPadding = 1
@@ -424,7 +424,7 @@ siteLogo = "/icons/apple-touch-icon.png"
 # 說明：用於 JSON-LD、Open Graph
 
 # 站點的描述
-siteDescription = "這是Mingxian的網路自留地，希望留下一束光可以照耀進黯淡的心"
+siteDescription = "Illumination | 這是Mingxian的博客, 分享了生活和技术的点点滴滴"
 # 說明：用於 HTML 的頭部元資料、JSON-LD、
 #      Open Graph、Atom、RSS
 
@@ -766,8 +766,8 @@ gitalkEnableHotKey = true
 
 ## Giscus
 enableGiscus = false
-giscusRepo = "[ENTER repo/you/want HERE]"
-giscusRepoId = "[ENTER REPO ID HERE]"
+giscusRepo = "yangmingxian/yangmingxian.github.io"
+giscusRepoId = "R_kgDOKkT9uA"
 giscusCategory = "[ENTER CATEGORY NAME HERE]"
 giscusCategoryId = "[ENTER CATEGORY ID HERE]"
 giscusMapping = "pathname"
@@ -809,7 +809,7 @@ enableGoogleAnalytics = false
 trackingCodeType = "gtag"
 # 說明：gtag 或 analytics
 
-trackingID = ""
+trackingID = "G-Q31RG0PX9R"
 # trackingID = "UA-100434861-1"
 
 
@@ -1093,6 +1093,7 @@ fontFamilyFooter = "'Source Code Pro', 'Noto Serif TC', 'Noto Serif SC', monospa
 fontFamilyBody = "'Amstelvar', 'Noto Serif TC', 'Noto Serif SC', serif"
 
 # 網路字型連結
+# fontsLink = ""
 fontsLink = "https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700&family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Cinzel+Decorative:wght@700&display=swap"
 # 說明：要想讀者一定體驗到你設定的字型，最好
 #      採用網路字型。MemE 主題目前僅支援
@@ -1145,7 +1146,7 @@ enableJustify = true
 ## 首字下沉
 
 # 是否開啟（全域性設定）
-enableDropCap = true
+enableDropCap = false
 # 說明：文章的 Front Matter 中的 `dropCap`
 #      的優先順序高於此處
 
@@ -1355,7 +1356,7 @@ enableAboutPageMinimalFooter = true
 # 返回頂部按鈕
 
 # 是否開啟
-enableBackToTop = false
+enableBackToTop = true
 
 # 是否開啟自動隱藏
 enableBackToTopAutoHide = true
@@ -1377,7 +1378,7 @@ backToTopIcon = "arrow-up"
 enableFooter = true
 
 # 是否顯示
-displayFooter = false
+displayFooter = true
 
 # 是否在首頁顯示
 displayFooterInHome = true
@@ -1489,7 +1490,7 @@ enableForceHTTPS = false
 # 平滑滾動
 
 # 是否開啟
-enableSmoothScroll = false
+enableSmoothScroll = true
 
 
 ######################################
