@@ -187,7 +187,7 @@ hr.coldplay {
 @font-face {
     font-family: 'Noto Serif SC';
     font-display: swap;
-    src: url('#{$baseRelURL}/fonts/NotoSerifSC.woff2') format('woff2');
+    src: url('#{$baseRelURL}/fonts/NotoSerifSC-VF.woff2') format('woff2');
     // url('#{$baseRelURL}/fonts/NotoSerifSC.woff2') format('woff2-variations');
     font-weight: 100 900;
     font-stretch: 50% 125%;
@@ -197,7 +197,7 @@ hr.coldplay {
 @font-face {
     font-family: 'Noto Serif TC';
     font-display: swap;
-    src: url('#{$baseRelURL}/fonts/NotoSerifTC.woff2') format('woff2');
+    src: url('#{$baseRelURL}/fonts/NotoSerifTC-VF.woff2') format('woff2');
     // url('#{$baseRelURL}/fonts/NotoSerifTC.woff2') format('woff2-variations');
     font-weight: 100 900;
     font-stretch: 50% 125%;
