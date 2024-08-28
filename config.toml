@@ -766,9 +766,9 @@ gitalkEnableHotKey = true
 ## Giscus
 enableGiscus = false
 giscusRepo = "yangmingxian/yangmingxian.github.io"
-giscusRepoId = "R_kgDOKkT9uA"
-giscusCategory = "[ENTER CATEGORY NAME HERE]"
-giscusCategoryId = "[ENTER CATEGORY ID HERE]"
+giscusRepoId = "R_kgDOMiFMSw"
+giscusCategory = "Announcements"
+giscusCategoryId = "DIC_kwDOMiFMS84Ch_YI"
 giscusMapping = "pathname"
 giscusStrict = false
 giscusReactionsEnabled = true
@@ -776,7 +776,7 @@ giscusEmitMetaData = false
 giscusInputPosition = "top"
 giscusTheme = "light"
 giscusThemeDark = "dark"
-giscusLang = "zh-TW"
+giscusLang = "zh-CN"
 # 說明：https://giscus.app/zh-TW
 
 # Remark42
