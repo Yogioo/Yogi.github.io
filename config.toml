@@ -6,7 +6,7 @@ title = "illumination"
 languageCode = "zh-hant"
 hasCJKLanguage = true
 # 版權資訊（支援 Markdown）
-copyright = "在保留本文作者及本文連結的前提下，非商業用途經作者同意后轉載分享。"
+copyright = "在保留本文作者及本文链接的前提下，非商业用途经作者同意后转载分享。"
 # copyright = "[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)"
 
 # 主題選擇
@@ -105,7 +105,7 @@ name = "Mingxian"
 # 郵箱
 email = "yangmingxian2015@gmail.com"
 # 座右銘或簡介
-motto = "當你下定決心 結局便成了副產物"
+motto = "循此苦旅 以达星辰"
 # 頭像
 avatar = "/icons/apple-touch-icon.png"
 # 網站（預設值：baseURL）
@@ -392,7 +392,6 @@ homeLayout = "poetry"
 
 ## 「詩意人生」
 # 詩句，支援 Markdown
-# homePoetry = ["暗夜中", "渴望一束光的關懷", "在白天", "卻更渴望黑洞的吞噬", "因為好奇心，想看看黑暗中有甚麼"]
 homePoetry = ["黑暗中","渴望一束光的抚慰", "亦为探寻未知的答案", "终于", "于黑暗彼端", "触碰到了遥远的星辰"]
 
 # 底部連結的內間距，單位：em
@@ -803,14 +802,13 @@ remark42NoFooter = false
 
 # 說明：僅在生產環境（production）下渲染
 
-enableGoogleAnalytics = false
+enableGoogleAnalytics = true
 
 # 跟蹤程式碼的型別
 trackingCodeType = "gtag"
 # 說明：gtag 或 analytics
 
 trackingID = "G-Q31RG0PX9R"
-# trackingID = "UA-100434861-1"
 
 
 ######################################
