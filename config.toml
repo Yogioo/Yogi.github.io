@@ -2,7 +2,7 @@
 # 站點配置
 
 baseURL = "https://yangmingxian.com/"
-title = "illumination"
+title = "ilLumination"
 languageCode = "zh-hant"
 hasCJKLanguage = true
 # 版權資訊（支援 Markdown）
@@ -423,7 +423,7 @@ siteLogo = "/icons/apple-touch-icon.png"
 # 說明：用於 JSON-LD、Open Graph
 
 # 站點的描述
-siteDescription = "Illumination | 這是Mingxian的博客, 分享了生活和技术的点点滴滴"
+siteDescription = "黑暗中，渴望一束光的抚慰，亦为探寻未知的答案，终于，于黑暗彼端，触碰到了遥远的星辰  | 这是YangMingxian的博客, 分享了生活和技术的点点滴滴。"
 # 說明：用於 HTML 的頭部元資料、JSON-LD、
 #      Open Graph、Atom、RSS
 
@@ -1631,14 +1631,14 @@ identifier = "lang-switcher"
 [languages.en.params]
 contentDir = "content/en"
 homePoetry = [
-    "In the depths of the dark night",
-    "I long for a ray of light's solace",
+    "In the darkness",
+    "I longed for the comfort of a beam of light",
     "Also drawn to seek that hidden truth",
-    "At last",
+    "Finally",
     "At the edge of darkness",
-    "I touch the distant stars.",
+    "I touched the distant stars.",
 ]
-siteDescription = "Blog of Mingxian in English."
+siteDescription = "In the darkness, I longed for the comfort of a beam of light and also drawn to seek that hidden truth. Finally, at the edge of darkness, I touched the distant stars | This is YangMingxian's blog, sharing bits and pieces of life and technology."
 listDateFormat = "January 2"
 fontFamilyTitle = "'Amstelvar', serif"
 fontFamilyHeadings = "'Amstelvar', serif"
