@@ -1,13 +1,19 @@
 +++
 title = "Aloha Mingxian"
-date = "2024-08-11T23:47:02+08:00"
+date = "2024-08-10 17:50:00 +0800"
 tags = ["aphorism"]
 slug = "Hello Mingxian"
 indent = true
 dropCap = false
+draft = true
 +++
 
 <!-- [^1]![1921.jpg](/images/1921.jpg) -->
+
+
+{{< music 29392943 song true >}}
+
+{{< bilibili  BV1v14y147nq  >}} 
 
 
 ---

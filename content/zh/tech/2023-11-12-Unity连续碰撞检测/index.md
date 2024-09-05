@@ -31,7 +31,7 @@ slug = "Unity continuous collision detection"
 
 然而，因为此方法依赖于线性扫掠，所以会忽略物体的角运动。例如，弹球机上的弹球杆固定在一端，围绕一个固定点旋转。弹球杆只做角运动，不做线性运动，因此无法正确撞击小球：  
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD1.gif)
+![SpeculativeCCD](SpeculativeCCD1.gif)
 
 已启用 Continuous Dynamic 属性的细杆游戏对象。绕轴心点快速旋转时，此杆不会与球体接触。
 
@@ -45,7 +45,7 @@ slug = "Unity continuous collision detection"
 此算法选择所有在下一个物理步骤中潜在的接触点。所有接触点都会被注入到solver中，以确保所有的接触约束都能得到满足，这样物体就不会在碰撞期间引起隧道效应了。  
 下图显示了一个从t0移动的球，如果它运动路线上没有墙的话，会移动到 t1。通过将它当前位置扩展为AABB，预测算法获得n1和n2两条法线。算法告诉solver预测这些接触点，以使球不会穿过墙面。
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD2.png)
+![SpeculativeCCD](SpeculativeCCD2.png)
 
 
 
@@ -53,14 +53,14 @@ slug = "Unity continuous collision detection"
 
 
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD3.gif)
+![SpeculativeCCD](SpeculativeCCD3.gif)
 
 已启用 Continuous Dynamic 属性的细杆游戏对象。绕轴心点快速旋转时，此杆不会与球体接触。
 
 
 但是，推测性 CCD 可能会导致幽灵碰撞；在这种碰撞中，对象的运动受到推测性触点的影响，而这是不应发生的。这是因为推测性 CCD 根据最近点算法收集所有潜在触点，所以触点法线不太准确。这通常会使高速对象沿着细分的碰撞特征滑动并跳起来，但不应该这样。例如，下图中，球体从 t0 开始向右水平移动，积分后的预测位置为 t1。扩大后的 AABB 与框形 b0 和 b1 重叠，而 CCD 在 c0 和 c1 产生两个推测性触点。由于推测性 CCD 使用最近点算法来生成触点，__c0__ 具有非常倾斜的法线，因此解算器会将其视作斜坡。
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD4.png)
+![SpeculativeCCD](SpeculativeCCD4.png)
 
 解算器认为 c0 处的触点是斜坡，因为最近点算法生成了不准确的触点法线。
 
@@ -68,7 +68,7 @@ slug = "Unity continuous collision detection"
 
 
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD5.gif)
+![SpeculativeCCD](SpeculativeCCD5.gif)
 
 在 c0 处产生的幽灵碰撞导致球体错误地向上跳跃，而不是笔直向前移动
 
@@ -77,5 +77,5 @@ slug = "Unity continuous collision detection"
 
 例如，下图显示了球体从 t0 向左移动，而球杆顺时针旋转。如果球体从撞击中获得太多能量，最终可能离开扩大的 AABB（红点矩形），落在 t1 处。如果在紧邻 AABB 的外部发生碰撞（如下面的蓝色框所示），球体最终可能会从右边穿出。这是因为解算器只计算扩大的 AABB 的内部触点，在求解和积分阶段不会执行碰撞检测。
 
-![SpeculativeCCD](/images/2023/SpeculativeCCD6.png)
+![SpeculativeCCD](SpeculativeCCD6.png)
 

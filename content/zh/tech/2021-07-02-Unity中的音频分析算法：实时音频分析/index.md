@@ -27,7 +27,7 @@ dropCap = false
 
 ## Unity3D 设置
 在Unity引擎中播放声音，我们需要使用 **AudioSource** 组件来播放类型为 AudioClip 的文件。一旦我们将音频导入为 AudioClip ，我们需要将加载类型设置为“Decompress On Load”，以确保我们在运行时访问音频样本数据。
-![AudioClip设置](/images/2021/audioclip_setting.png)
+![AudioClip设置](audioclip_setting.png)
 
 我们将 **AudioSource** 组件添加到场景中的游戏物体上，将 AudioClip 拖动到AudioSource中，将播放模式选中为 Play onwake，这样方便一进入到场景就开始播放音频。一旦音频开始播放，Unity API就会提供一些便捷的方法来获取当前正在播放音频的信息。这使得我们对此音频的实时分析变得更简单。
 
@@ -57,7 +57,7 @@ void Update()
     }
 ```
 
-![GetSpectrumData](/images/2021/GetSpectrumData.png)
+![GetSpectrumData](GetSpectrumData.png)
 
 
 
@@ -111,7 +111,7 @@ if (audioSource.time >= 128f && audioSource.time < 129f)
     }
 ```
 测试的结果如下所示：
-![debug_test](/images/2021/debug_test.png)
+![debug_test](debug_test.png)
 
 方便观察，我将数据结果取3位小数，并做成表格：  
 
@@ -225,7 +225,7 @@ void Update()
 
 ## 结果
 
-![GetSpectrumData](/images/2021/result.png)
+![GetSpectrumData](result.png)
 
 每个绿点都是 rectified spectral flux 样本。可以看到一直到绿线都有绿点，绿线代表音轨中的当前播放时间。蓝点是该时间点的阈值。由于计算平均值所需的样本时间范围，我们只能生成比实时晚几个样本的阈值。红点是我们的峰值。由于我们在这里分析的是整个频谱，歌曲中存在其他的干扰因素影响到了特定频率的强度，因此一些频率的节拍并不总是在我们绘图的 y 轴上的同一个位置（rectified spectral flux 的值），相同频率的节拍有可能画出的点的y轴会有区别。    
 

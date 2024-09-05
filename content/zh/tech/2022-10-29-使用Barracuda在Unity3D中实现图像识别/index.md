@@ -12,7 +12,7 @@ dropCap = false
 
 
 
-![识别结果截图](/images/2022/image_recognition_result.png)
+![识别结果截图](image_recognition_result.png)
 
 ---
 > (已过时，待更新) 在这个Unity 教程中，我将介绍使用 Barracuda 在 Unity3D 中运行机器学习模型。这允许您在 Unity 视频游戏引擎中以 onnx 的格式运行大多数的机器学习模型，以便在 Android 或 iOS 上提供跨平台支持。这个教程是我在学习过程中的学习分享，不会涉及到机器学习的内容以及集成Unity3D过程中很深的内容，很适合新手作为一个学习参考。
@@ -75,7 +75,7 @@ dropCap = false
 ## Unity的场景设置 
 Unity场景的设置很简单，我们只需要一个Canvas：其中有一个RawImage用于显示手机摄像机返回的图像，还有一个Button来交互，button上的文字就是识别的结果。除此之外，我还设置了一个空物体来存放推理和识别的脚本。
   
-![场景](/images/2022/unity_scene.png)
+![场景](unity_scene.png)
 
 ## 关键脚本与流程
 ### 手机摄像头的显示
@@ -215,7 +215,7 @@ void OnCompleteReadback(AsyncGPUReadbackRequest request)
 
 经过测试，我的手机毫无压力的得到了不错的识别结果。 
 注：在代码里我强制使用了30帧来节约资源。识别的结果如下（重做了新的UI界面）:  
-![识别结果截图](/images/2022/image_recognition_result_new.png)
+![识别结果截图](image_recognition_result_new.png)
 
 
 ### 未来的方向

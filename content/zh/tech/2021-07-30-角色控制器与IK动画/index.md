@@ -25,11 +25,11 @@ dropCap = false
 2. **Collider + Rigidbody** 的模块组合
 
 要选择角色控制器最主要的指标在于两大方面，一是组件能够移动角色（Movement），另一方面是碰撞体交互（Colliders）。这其中具体细分比如重力，跳跃，阻挡，击倒等方面的内容。
-![Character Controller](/images/2021/character_controller.gif)
+![Character Controller](character_controller.gif)
 
 
 通常情况下，我们考虑一些斜坡、台阶、和碰撞的因素。
-![Character Controller2](/images/2021/character_controller2.gif)
+![Character Controller2](character_controller2.gif)
 
 Unity3D的内置方案 Character Controller 是使用起来最为方便的，使用 Rigidbody 需要我们进行一些改进但是它更为贴近物理.
 
@@ -37,7 +37,7 @@ Unity3D的内置方案 Character Controller 是使用起来最为方便的，使
 Character controller可以上台阶或者斜坡. A rigidbody + Capsule的方案有时候不能上斜坡或者台阶。
 
 但是使用Character controller，移动collider或者进行其他碰撞体交互时会遇到麻烦。吐槽一下Unity的示例也会出现移动碰撞或者断断续续的问题。需要继续改进。
-![Collider](/images/2021/collider.gif)
+![Collider](collider.gif)
 
 我就是需要 Capsule Collider + Rigidbody 的控制和物理特性，因此我使用 Capsule 进行基本碰撞，并通过Raycast的方式进行自定义Controller。
 
@@ -84,7 +84,7 @@ GIF来源：[Youtube Link](https://www.youtube.com/watch?v=e94KggaEAr4)，有兴
 
 ## 地板光线投射
 
-![地板光线投射](/images/2021/floor_raycast.png)  
+![地板光线投射](floor_raycast.png)  
 
 我们使用Raycast来进行探测，找到地板的位置并返回position信息。这里我只写了一条射线，从左脚的位置lpos向下发射，结果返回给leftHit.point。  
 项目中我使用了10条射线，左右脚各5条，一个在正中间，4个在周围。这可以方便我们根据射线的碰撞点的信息判断地形。
@@ -110,18 +110,18 @@ GIF来源：[Youtube Link](https://www.youtube.com/watch?v=e94KggaEAr4)，有兴
 ```
 附加 CharacterMovement Script 并添加 Rigidbody 和 Capsule Collider，确保它离开地面并位于角色的中心，如图所示。我们使用的是Raycast方式判断角色是否在地面上，因此collider不要接地，它仅供其他碰撞检测的交互，不用来和地板接触。 
 此外，冻结刚体的旋转并关闭重力，重力是在未接地时手动施加的。冻结刚体后角色不会横向倒地。
-![collider2](/images/2021/collider2.png)
+![collider2](collider2.png)
 
 
 并且为了防止粘在墙壁/壁架上，向具有 0 摩擦力的 Capsule Collider 添加物理材质。
-![physics_mat](/images/2021/physics_mat.png)
+![physics_mat](physics_mat.png)
 
 
 ## IK
 项目使用的是** Humanoid ** Rigs，其他rig，如generic不支持如下的解决方法。
 
-![FootIK](/images/2021/footik.gif)
-![FootIK2](/images/2021/footik2.gif)
+![FootIK](footik.gif)
+![FootIK2](footik2.gif)
 
 ### Foot IK
 为了让脚适应地板，我们必须设置 IK Override的位置、旋转和权重。
@@ -156,7 +156,7 @@ GIF来源：[Youtube Link](https://www.youtube.com/watch?v=e94KggaEAr4)，有兴
     anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, lFweight);
     anim.SetIKRotationWeight(AvatarIKGoal.RightFoot, rFweight);
 ```
-![Curve](/images/2021/anim_curve.png)
+![Curve](anim_curve.png)
 
 ### Head IK
 和脚的IK相比，头部IK相当简单。  
@@ -165,11 +165,11 @@ GIF来源：[Youtube Link](https://www.youtube.com/watch?v=e94KggaEAr4)，有兴
     anim.SetLookAtWeight(lookIKWeight, bodyWeight, headWeight, eyesWeight, clampWeight);
 
 ```
-![HeadIK](/images/2021/headik.gif)
+![HeadIK](headik.gif)
 
 
 ### Hand IK
-![HandIK](/images/2021/handik.gif)
+![HandIK](handik.gif)
 类似于 Foot IK 部分，这次从肩部进行光线投射.
 
 这里应该再次基于动画中的 float 参数进行混合，并使用avatar mask，因此在进行全身动画时它不会影响移动手臂。
@@ -178,7 +178,7 @@ GIF来源：[Youtube Link](https://www.youtube.com/watch?v=e94KggaEAr4)，有兴
 这篇文章实现了角色控制的一些关于移动和交互的方面，其实一个比较完整的控制器还需要更多的工作。  
 
 接下来的工作还被期望实现人物的跳跃，爬坡，以及攀爬的功能，值得一提的是，我们应该再次把目光集中在procedural work上，而不是用动画堆砌出来生硬的角色。类似的例子：
-![Jump](/images/2021/example.gif)
+![Jump](example.gif)
 
 ------
 
