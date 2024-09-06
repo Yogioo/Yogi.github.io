@@ -8,12 +8,9 @@ dropCap = false
 draft = true
 +++
 
-<!-- [^1]![1921.jpg](/images/1921.jpg) -->
-
-
 {{< music 29392943 song true >}}
 
-{{< bilibili  BV1v14y147nq  >}} 
+<!-- {{< bilibili  BV1v14y147nq  >}}  -->
 
 
 ---
