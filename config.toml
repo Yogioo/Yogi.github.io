@@ -497,7 +497,7 @@ smallestFontSize = 1
 # 列表頁面
 
 # 寬度
-listWidth = 36
+listWidth = 42
 # 說明：如果留空（""），則用 42 作為預設值
 #      單位：em
 
@@ -680,7 +680,7 @@ mermaidThemeDark = 'dark'
 # 說明：僅在生產環境（production）下渲染
 
 # 是否開啟（全域性設定）
-enableComments = false
+enableComments = true
 # 說明：文章的 Front Matter 中的 `comments`
 #      的優先順序高於此處
 
@@ -764,7 +764,7 @@ gitalkEnableHotKey = true
 # 說明：https://github.com/gitalk/gitalk
 
 ## Giscus
-enableGiscus = false
+enableGiscus = true
 giscusRepo = "yangmingxian/yangmingxian.github.io"
 giscusRepoId = "R_kgDOMiFMSw"
 giscusCategory = "Announcements"
@@ -856,7 +856,7 @@ primaryColorDark = "201, 65%, 62%"
 # 注意：只支援 HSL 顏色值
 
 # 文章的內容寬度
-postWidth = 36
+postWidth = 42
 # 說明：如果留空（""），則用 42 作為預設值
 #      單位：em
 
@@ -1363,7 +1363,7 @@ enableBackToTopAutoHide = true
 displayBackToTopInHome = false
 
 # 是否在移動端顯示
-displayBackToTopOnMobile = false
+displayBackToTopOnMobile = true
 
 # 按鈕圖示
 backToTopIcon = "arrow-up"
@@ -1391,7 +1391,7 @@ displaySiteCreatedYear = true
 # 年份與作者之間的圖示，留空（""）則無
 iconBetweenYearAndAuthor = "heart"
 # 圖示顏色
-iconColor = "#f06292"
+iconColor = "#FF73A2"
 # 是否開啟圖示的跳動效果
 iconAnimation = true
 
