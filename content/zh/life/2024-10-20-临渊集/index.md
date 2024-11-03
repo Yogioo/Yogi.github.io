@@ -3,7 +3,7 @@ title = "临渊集"
 date = "2024-10-20 20:26:00 +0800"
 tags = ["aphorism"]
 slug = "besides_abyss"
-indent = true
+indent = false
 dropCap = false
 # draft = true
 +++
@@ -15,46 +15,51 @@ dropCap = false
 
 ---
  
-   1. 不必仰望别人 自己亦是风景
-   <div style="text-align:right"> ——石家庄机场宣传页  </div>
+   不必仰望别人 自己亦是风景
+   <div style="text-align:right"> ——石家庄机场  </div>
 
-   2. 找不到答案的时候 就去看看世界吧
-   <div style="text-align:right"> ——石家庄机场宣传页  </div>
+   找不到答案的时候 就去看看世界吧
+   <div style="text-align:right"> ——石家庄机场  </div>
 
-   3. 往事如梦 世事似幻
+   往事如梦 世事似幻
    <div style="text-align:right"> ——借鉴来的 </div>
 
-   4. Life can be long, but short.
+   Life can be long, but short.
    <div style="text-align:right"> ——Mingxian </div>
 
-   5. 这些墙很古怪，起先你恨它，然后习惯它，更久后，你不能没有它。
+   这些墙很古怪，起先你恨它，然后习惯它，更久后，你不能没有它。
    <div style="text-align:right"> ——《肖申克的救赎》 </div>
 
-   6. 我如今也走到了人生的岔路口，我总是清楚该走哪条路，无一例外，我都清楚，但我从没走过，知道为什么吗，因为真的太难了。
+   我如今也走到了人生的岔路口，我总是清楚该走哪条路，无一例外，我都清楚，但我从没走过。 知道为什么吗，因为真的太难了。
    <div style="text-align:right"> ——《闻香识女人》 </div>
 
-   7. -人生总是这么痛苦吗，还是只有小时候会这样？  
+   -人生总是这么痛苦吗，还是只有小时候会这样？  
    -总是如此。
    <div style="text-align:right"> ——《这个杀手不太冷》 </div>
 
-   8. 有人沦为平庸浅薄，有人金玉其外，败絮其中，可不经意间，有一天你也会遇到一个彩虹般绚丽的人，从此以后，其他人就不过是匆匆浮云。
+   有人沦为平庸浅薄，有人金玉其外，败絮其中，可不经意间，有一天你也会遇到一个彩虹般绚丽的人，从此以后，其他人就不过是匆匆浮云。
    <div style="text-align:right"> ——《怦然心动》 </div>
 
-   9. 习惯于绝望的处境,比绝望的处境本身还要糟，这才是真正的不幸。
+   习惯于绝望的处境,比绝望的处境本身还要糟，这才是真正的不幸。
    <div style="text-align:right"> ——《鼠疫》 </div>
 
-   10. 人生近看是悲剧，远看是喜剧
+   人生近看是悲剧，远看是喜剧
    <div style="text-align:right"> ——查理·卓别林 </div>
 
-   11. 世间万物都是能量守恒的，此消彼长。
+   世间万物都是能量守恒的，此消彼长。
    <div style="text-align:right"> ——Mingxian </div>
 
-   12. Cultivate your hunger before you idealize. Motivate your anger to make them all realize.  
+   Cultivate your hunger before you idealize. Motivate your anger to make them all realize.  
    <div style="text-align:right"> ——《wind》 </div>
 
-   13. 纷扰固溺志之场，而枯寂亦槁心之地。故学者当栖心元默，以宁吾真体。亦当适志恬愉，以养吾圆机。
+   纷扰固溺志之场，而枯寂亦槁心之地。故学者当栖心元默，以宁吾真体。亦当适志恬愉，以养吾圆机。
    <div style="text-align:right"> ——《菜根谭》 </div>
 
-   
+   当你回忆过去的时候。你没意识到的是，未来的你也许正在看着你。
+   <div style="text-align:right"> ——Mingxian </div>
+
+   我小时候，有一次找瓢虫，找了好几个小时都一无所获，最后我只能放弃，在草地上睡着了。   
+   当我醒来的时候，身上爬满了瓢虫。
+   <div style="text-align:right"> ——《托斯卡纳艳阳下》 </div>
 
    ... ...
