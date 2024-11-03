@@ -62,4 +62,7 @@ dropCap = false
    当我醒来的时候，身上爬满了瓢虫。
    <div style="text-align:right"> ——《托斯卡纳艳阳下》 </div>
 
+   内心孤独的人，对生活的洞察力是敏锐的。它让你寻找生活中的美好以摆脱孤独。这是一种精神世界的负反馈循环。
+   <div style="text-align:right"> ——Mingxian </div>
+
    ... ...
