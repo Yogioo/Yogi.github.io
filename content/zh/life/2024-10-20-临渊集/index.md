@@ -65,4 +65,25 @@ dropCap = false
    内心孤独的人，对生活的洞察力是敏锐的。它让你寻找生活中的美好以摆脱孤独。这是一种精神世界的负反馈循环。
    <div style="text-align:right"> ——Mingxian </div>
 
+   你本来就是一个打破规则的人，为什么要用规则以内的标准衡量自己，与别人比较呢。
+   <div style="text-align:right"> ——Blacktea</div>
+
+   做一个温柔的人，也去感受整个世界的温和。
+   <div style="text-align:right"> ——Mingxian </div>
+
+   阅读本身就是一种倾听，写作本身就是一种倾诉。  
+   有时候你不必苛求什么，有这两件事就足够了。
+   <div style="text-align:right"> ——Mingxian </div>
+
+   保持呼吸，你能做到。
+   <div style="text-align:right"> ——《蔚蓝》 </div>  
+
+   我所见过的事物，你们人类绝对无法置信。我目睹了战船在猎户星座的端沿起火燃烧，我看着C射线 在唐怀瑟之门附近的黑暗中闪烁。
+   所有这些时刻 终将流逝在时光中，一如眼泪，消失在雨中  
+   <div style="text-align:right"> ——《银翼杀手》 </div>
+
+   我书读得越多，越觉得自己无知；得到的越多，越害怕失去。  
+   那么你有没有想过，它们的意义是什么？
+   <div style="text-align:right"> ——Mingxian </div>
+
    ... ...
