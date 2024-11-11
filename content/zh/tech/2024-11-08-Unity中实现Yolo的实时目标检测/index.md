@@ -11,7 +11,46 @@ katex = true
 
 ![yolo_result](yolo_result.jpg)
 
+> 很久之前写过一篇比较粗略的图像识别的文章，感觉那时候的 Unity 用作推理 onnx 模型的 Barracuda 包还不是特别成熟，
+> 我想在一个游戏中集成一个很有趣的模型，它使用的 conv 的动态权重，使用 Unity 进行推理时，Barracuda 不支持 conv 的动态权重（[Github的Issue在此](https://github.com/Unity-Technologies/barracuda-release/issues/327)）。
+ 
+
+> 在 Unity6 发布之前我就获取了 Sentis 的内测资格，但是一直没有时间更新它，最近又有B站的朋友问我 Yolo 的事情，干脆这里直接使用最新的 Unity6 + Sentis 版本做一个 Yolo 的集成。
+> 希望对有需求的人有所帮助
+
+#### 整体流程概述
+
+如果你有现成的 Yolo 的 onnx 格式的模型，那么其实使用 Unity 进行推理就变得很简单了。
+
+想办法让Unity的输入匹配 onnx 模型的输入（幸运的是，Yolo 模型已经内置了裁剪扩充的步骤，你直接丢 Texture 进去就可以了）。  
+使用 Sentis 库将 Texture 转换成 Tensor 并输入模型进行推理，得到输出的 ```outputTensor```。  
+你需要做的就时处理这些 Tensor 转换成自己想要的形式。  
+
+Yolo 模型的输出 ```outputTensor``` 通常包含每个检测框的边界框信息、类别得分以及目标置信度。最后根据这些数据，将框体绘制出来即可。
+
 #### 目标检测流程概述
+
+```csharp
+// 获取数据源输入
+Texture texture = source.GetTexture();
+// 清除识别框
+screen.ResetBoundingBoxes();
+// 数据源显示
+screen.SetTexture(texture);
+// 输入张量
+Tensor<float> inputTensor = TextureConverter.ToTensor(texture, TARGET_WIDTH, TARGET_HEIGHT, 3);
+// 运行模型
+worker.Schedule(inputTensor);
+// 获取输出张量
+Tensor<float> outputTensor = worker.PeekOutput() as Tensor<float>;
+// 处理模型的输出
+List<YoloPrediction> predictions = yolo.Predict(outputTensor, TARGET_WIDTH, TARGET_HEIGHT);
+// 绘制识别框
+screen.DrawBoundingBoxes(predictions);
+// 释放非托管的张量资源
+outputTensor.Dispose();
+inputTensor.Dispose();
+```
 
 **1. 获取输入数据**
 首先，我们需要从数据源中获取当前图像或视频帧。数据源可以是来自摄像头、视频文件或屏幕截图等。获取到的图像会作为目标检测模型的输入。
@@ -33,33 +72,33 @@ katex = true
 
 #### 处理模型输出
 
-方法 Predict 接收 YOLO 模型的输出张量 (outputTensor)，以及图像的宽高（imageWidth 和 imageHeight），返回检测到的对象列表 List<YoloPrediction>。它的主要流程是：
+方法 ```Predict``` 接收 YOLO 模型的输出张量 (```outputTensor```)，以及图像的宽高（```imageWidth``` 和 ```imageHeight```），返回检测到的对象列表 ```List<YoloPrediction>```。它的主要流程是：
 
 **1. 固定张量数据到 GPU**  
-首先，将预测输出张量固定到 GPU 内存，以便后续的 ComputeShader 可以直接访问它的数据。在 Unity 中，ComputeShader 负责在 GPU 上处理数据，因此输出张量必须通过固定（Pinning）操作，让其内容可用于 GPU 计算。固定操作会返回一个引用，确保 ComputeShader 能访问它。在开始处理前，我们还要进行空值检查，以防张量数据缺失导致后续的处理失败。
+首先，将预测输出张量固定到 GPU 内存，以便后续的 ```ComputeShader``` 可以直接访问它的数据。在 Unity 中，```ComputeShader``` 负责在 GPU 上处理数据，因此输出张量必须通过固定（Pinning）操作，让其内容可用于 GPU 计算。固定操作会返回一个引用，确保 ```ComputeShader``` 能访问它。在开始处理前，我们还要进行空值检查，以防张量数据缺失导致后续的处理失败。
 
 **2. 初始化和复用缓冲区**  
 在进行预测前，我们需要为数据传输创建一系列缓冲区。这个步骤的目的在于初始化或复用现有的 GPU 缓冲区，避免重复创建。
 
-- **边界框缓冲区**：保存检测到的边界框（Bounding Boxes）的数据，每个框对应4个浮点数，表示位置和大小。
+- **边界框缓冲区**：保存检测到的边界框（```Bounding Boxes```）的数据，每个框对应4个浮点数，表示位置和大小。
 - **类别索引缓冲区**：保存检测到的对象类别索引，用于后续映射成具体类别名称。
 - **分数缓冲区**：保存每个检测到的对象的置信分数。
 - **有效检测计数缓冲区**：用于存储有效检测的数量，这在后续读取检测结果时会派上用场。
 在第一次调用或检测数量发生变化时，这些缓冲区会被创建或重新分配，否则会重复利用现有缓冲区，从而优化性能。
 
 **3. 设置 Shader 参数和绑定缓冲区**  
-一旦所有缓冲区准备好，就可以配置 ComputeShader 的各项参数。这包括：
+一旦所有缓冲区准备好，就可以配置 ```ComputeShader``` 的各项参数。这包括：
 
-- **设置检测参数**：将检测数量、类别数量、图像宽度和高度等参数传递给 ComputeShader。这些参数帮助 Shader 了解每个检测的细节和图像的分辨率。
+- **设置检测参数**：将检测数量、类别数量、图像宽度和高度等参数传递给 ```ComputeShader```。这些参数帮助 Shader 了解每个检测的细节和图像的分辨率。
 - **绑定缓冲区**：将输出张量、边界框、类别索引、分数以及有效检测计数等缓冲区绑定到 Shader 上，以便其直接读写这些缓冲区的数据。
-设置完参数后，ComputeShader 可以根据这些参数和缓冲区，处理张量数据并生成检测结果。
+设置完参数后，```ComputeShader``` 可以根据这些参数和缓冲区，处理张量数据并生成检测结果。
 
 **4. 执行 Shader 处理**  
-接下来是执行 ComputeShader，将张量数据转化为具体的检测输出。这一步中：
+接下来是执行 ```ComputeShader```，将张量数据转化为具体的检测输出。这一步中：
 
-- ComputeShader 会在 GPU 上运行一个计算任务，按照配置的线程组数分配计算资源。
+- ```ComputeShader``` 会在 GPU 上运行一个计算任务，按照配置的线程组数分配计算资源。
 - 每个线程组负责处理一部分数据，确保所有检测数据都经过处理。
-运行 ComputeShader 的好处在于它能高效利用 GPU 资源，快速解析出每个检测框的边界框坐标、类别索引和置信分数。
+运行 ```ComputeShader``` 的好处在于它能高效利用 GPU 资源，快速解析出每个检测框的边界框坐标、类别索引和置信分数。
 
 **5. 从 GPU 获取结果**  
 当 ComputeShader 处理完成后，我们需要将检测结果从 GPU 读取回主内存：
@@ -69,13 +108,15 @@ katex = true
 读取操作将这些数据从 GPU 的缓冲区复制到 CPU 侧的内存中，为后续数据处理步骤准备数据。
 
 **6. 转换为 YoloPrediction**  
-数据读取完成后，我们需要将其转换为便于处理的预测对象列表。我们遍历读取的数据，将每个检测对象的边界框、类别索引和置信分数封装成 YoloPrediction 对象。在封装过程中：
+数据读取完成后，我们需要将其转换为便于处理的预测对象列表。我们遍历读取的数据，将每个检测对象的边界框、类别索引和置信分数封装成 ```YoloPrediction``` 对象。在封装过程中：
 
 - **类别映射**：每个类别索引会被映射成对应的类别名称，这样更直观。
 - **颜色赋值**：给每个检测的类别分配一个颜色，方便在显示时区分不同的对象。
 - **边界框坐标转换**：确保边界框数据符合后续显示或操作的格式。
-生成的 YoloPrediction 列表就是最终的检测结果，我们还会应用非极大值抑制（NMS）来去除重叠的框，确保预测结果简洁高效。NMS 可以帮助保留置信分数最高的检测，并去掉与之重叠的其他低分数框。
+生成的 ```YoloPrediction``` 列表就是最终的检测结果，我们还会应用非极大值抑制（NMS）来去除重叠的框，确保预测结果简洁高效。NMS 可以帮助保留置信分数最高的检测，并去掉与之重叠的其他低分数框。
 
+
+> *Tip: 将 outputTensor 分拆成多个缓冲区，是为了利用计算着色器（Compute Shader）的并行计算能力，提升处理效率。这种设计非常适合大规模 GPU 并行处理，尤其在执行复杂的后处理步骤如非极大值抑制（NMS）时，可以显著提升性能和速度。*
 ```CSharp
 public void InitializeBuffers(int numDetections)
 {
@@ -152,7 +193,7 @@ public List<YoloPrediction> Predict(Tensor<float> outputTensor, int imageWidth, 
 ```
 
 
-#### 基于类别的非极大值抑制（Non-Max Suppression，NMS）
+#### 检测框体处理  
 用于在目标检测任务中去除重复或高度重叠的检测框。以下是各个步骤的详细解释：
 
 **1. 基于类别的非极大值抑制 (ApplyClassWiseNonMaxSuppression)**  
@@ -173,10 +214,10 @@ private List<YoloPrediction> ApplyClassWiseNonMaxSuppression(List<YoloPrediction
     return finalPredictions;
 }
 ```
-  1. **按类别分组**：首先，将 predictions（所有检测结果）按类别（ClassIndex）进行分组。这样，可以对每个类别单独应用非极大值抑制。
-  2. **初始化列表**：finalPredictions 用于存储最终的检测结果。
-  3. **应用 NMS**：遍历每个类别的预测列表（classGroup），对其中的每一类分别调用 ApplyNonMaxSuppression 方法。
-  4. **返回结果**：将所有经过 NMS 筛选后的检测结果添加到 finalPredictions，并返回。
+  1. **按类别分组**：首先，将 ```predictions```（所有检测结果）按类别（```ClassIndex```）进行分组。这样，可以对每个类别单独应用非极大值抑制。
+  2. **初始化列表**：```finalPredictions``` 用于存储最终的检测结果。
+  3. **应用 NMS**：遍历每个类别的预测列表（```classGroup```），对其中的每一类分别调用 ```ApplyNonMaxSuppression``` 方法。
+  4. **返回结果**：将所有经过 NMS 筛选后的检测结果添加到 ```finalPredictions```，并返回。
 
 **2. 非极大值抑制 (ApplyNonMaxSuppression)**  
 ```csharp
@@ -199,10 +240,10 @@ private List<YoloPrediction> ApplyNonMaxSuppression(List<YoloPrediction> predict
     return result;
 }
 ```
-  1. **按置信度排序**：predictions.Sort 将每个检测结果按置信度（Score）从高到低排序，这样可以优先处理置信度高的预测框。
-  2. **初始化结果列表**：result 用于存储筛选后的预测。
-  3. **选择置信度最高的预测**：在每个循环中，取出剩余预测框中置信度最高的（即predictions[0]），并将其添加到 result 中。
-  4. **移除重叠框**：在 predictions 中，移除与当前置信度最高预测框（bestPrediction）重叠过大的预测框（通过 CalculateIoU 方法计算交并比）。若重叠程度超过阈值（iouThreshold），则移除。
+  1. **按置信度排序**：```predictions.Sort``` 将每个检测结果按置信度（Score）从高到低排序，这样可以优先处理置信度高的预测框。
+  2. **初始化结果列表**：```result``` 用于存储筛选后的预测。
+  3. **选择置信度最高的预测**：在每个循环中，取出剩余预测框中置信度最高的（即```predictions[0]```），并将其添加到 ```result``` 中。
+  4. **移除重叠框**：在 ```predictions``` 中，移除与当前置信度最高预测框（```bestPrediction```）重叠过大的预测框（通过 ```CalculateIoU``` 方法计算交并比）。若重叠程度超过阈值（```iouThreshold```），则移除。
 
 **3. 计算交并比 (CalculateIoU)**  
 ```csharp
@@ -220,9 +261,9 @@ private float CalculateIoU(Rect boxA, Rect boxB)
 2. **计算交集面积**：使用交集宽度和高度计算交集面积。
 3. **计算并集面积**：两个框的面积相加，减去交集面积。
 4. **计算 IoU**：将交集面积除以并集面积得到交并比（IoU），这是判断两个框重叠程度的指标。
-通过这些步骤，ApplyClassWiseNonMaxSuppression 可以过滤掉多余的检测框，保留不同类别中置信度高且不重叠的检测结果。
+通过这些步骤，```ApplyClassWiseNonMaxSuppression``` 可以过滤掉多余的检测框，保留不同类别中置信度高且不重叠的检测结果。
 
 
 #### Result
-
+![yolo_result](UI.png)
 ![yolo_result](yolo_result2.gif)
