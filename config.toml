@@ -1,8 +1,8 @@
 ##########################################
 # 站點配置
 
-baseURL = "https://yangmingxian.com/"
-title = "ilLumination"
+# baseURL = "https://yangmingxian.com/"
+title = "Yogi's Web"
 languageCode = "zh-hant"
 hasCJKLanguage = true
 # 版權資訊（支援 Markdown）
